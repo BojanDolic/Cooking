@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <item android:title="Recepti"
+            android:icon="@drawable/list_icon"
+            android:checked="true"/>
+
+        <item
+            android:id="@+id/zdrava_hrana_drawerbtn"
+            android:title="Zdrava hrana"
+            android:icon="@drawable/salata_icon" />
+
+
+    <item android:id="@+id/tutorijal_drawerbtn"
+        android:title="Kako kreirati recept?"
+        android:icon="@drawable/help_icon"/>
+
+
+    <item android:title="Ostalo">
+
+        <menu>
+
+            <item
+                android:id="@+id/profil_drawerbtn"
+                android:title="Profil"
+                android:icon="@drawable/person_icon" />
+
+            <item android:id="@+id/prijavibug_drawerbtn"
+                android:title="Prijavi Bug"
+                android:icon="@drawable/bug_icon"/>
+
+
+            <item android:id="@+id/odjavise_drawerbtn"
+                android:title="Odjavi se"
+                android:icon="@drawable/logout_icon"/>
+
+
+        </menu>
+
+    </item>
+
+
+</menu>

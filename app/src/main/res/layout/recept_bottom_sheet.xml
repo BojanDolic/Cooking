@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="16dp"
+    android:minHeight="56dp"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/recept_bottom_sheet_text"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="center_vertical"
+        android:textSize="17sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_camera_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Kamera"
+            android:fontFamily="@font/rubik_regular"
+            android:textAlignment="viewStart"
+            app:iconPadding="36dp"
+            app:icon="@drawable/camera_icon"
+            android:textSize="14sp"
+            android:elevation="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/open_galeriju_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Galerija"
+            android:textAlignment="viewStart"
+            android:fontFamily="@font/rubik_regular"
+            app:icon="@drawable/image_icon"
+            app:iconPadding="36dp"
+            android:textSize="14sp"
+            android:elevation="0dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/plava"
+    android:gravity="center"
+    android:padding="9dp">
+
+    
+    <ImageView
+        android:id="@+id/tutorijal_postavljanje_slike_imageview"
+        android:layout_width="280dp"
+        android:layout_height="180dp"
+        android:src="@drawable/primjer_slike_recepta"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="24dp"/>
+
+
+    <TextView
+        android:id="@+id/tutorijal_2_naslov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SLIKA"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tutorijal_2_opis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recept_tutorijal_2"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_light"
+        android:textAlignment="center"
+        android:textSize="17sp" />
+
+    
+</LinearLayout>

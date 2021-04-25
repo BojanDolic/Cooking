@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minHeight="56dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/bottom_sheet_behavior">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:fontFamily="@font/rubik_regular"
+        android:gravity="center|start"
+        android:paddingStart="16dp"
+        android:text="Podešavanje naloga"
+        android:textSize="17sp"
+        android:textColor="#999"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/settings_change_name_btn"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/profile_bottomSheet_ime_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/text_change_icon"
+                android:tint="#97b806" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/profile_bottomSheet_ime_icon"
+                android:fontFamily="@font/rubik_regular"
+                android:layout_marginStart="36dp"
+                android:text="Promjena imena"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/settings_change_profile_picture_btn"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:clickable="true"
+            android:layout_marginBottom="13dp">
+
+            <ImageView
+                android:id="@+id/profile_bottomSheet_slika_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/profile_card_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/profile_bottomSheet_slika_icon"
+                android:fontFamily="@font/rubik_regular"
+                android:layout_marginStart="36dp"
+                android:text="Profilna slika"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

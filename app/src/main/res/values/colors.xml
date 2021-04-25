@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ff2d55</color>
+    <color name="colorPrimaryDark">#bf2240</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="orange">#ff4d2d</color>
+
+    <color name="zelenaUspjesno">#489412</color>
+    <color name="plava">#0777e0</color>
+    <color name="zuta">#e09c07</color>
+    <color name="crvena">#e32424</color>
+    <color name="svijetloPlava">#1cc9c0</color>
+    <color name="ljubtamna">#a303a8</color>
+
+    <color name="colorPrimaryAlpha">#3CFF2D55</color>
+
+
+</resources>

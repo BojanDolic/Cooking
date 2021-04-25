@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filtrirajte recepte"
+        android:padding="6dp"
+        android:background="@color/colorPrimary"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:fontFamily="@font/rubik_bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_margin="9dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kategorije:"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/rubik_regular" />
+
+        <Spinner
+            android:id="@+id/filter_kategorija_spinner"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/input_background"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vrijeme pripreme:"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/rubik_regular" />
+
+
+
+        <Spinner
+            android:id="@+id/filter_vrijemePripreme_spinner"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/gradient_border" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Težina pripreme:"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/rubik_regular" />
+
+        <Spinner
+            android:id="@+id/filter_tezinaPripreme_spinner"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/input_background" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="12dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/filtriraj_ne_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Odustani"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_margin="6dp"
+        android:textColor="@color/crvena"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/filtriraj_da_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Filtriraj"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_margin="6dp"
+            android:textColor="@color/zelenaUspjesno"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

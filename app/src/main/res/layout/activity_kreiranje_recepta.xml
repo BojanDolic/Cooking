@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KreiranjeRecepta">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="46dp">
+
+
+        <ImageView
+            android:id="@+id/kreiranje_recepta_slika"
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:background="@drawable/slika_placeholder"
+            android:clickable="true"
+            android:scaleType="centerCrop" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="9dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="9dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Izaberite vrstu objave i kategoriju recepta !"
+                        android:textSize="16sp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center">
+
+                        <Spinner
+                            android:id="@+id/vrstaObjave_spinner"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="9dp"
+                            android:layout_marginEnd="24dp"
+                            android:background="@drawable/input_background" />
+
+
+                        <Spinner
+                            android:id="@+id/kategorijaJela_spinner"
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="9dp"
+                            android:layout_toEndOf="@id/vrstaObjave_spinner"
+                            android:background="@drawable/input_background" />
+
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/naslov_recepta_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="9dp"
+                    android:paddingBottom="9dp"
+                    app:boxCornerRadiusBottomEnd="10dp"
+                    app:boxCornerRadiusBottomStart="10dp"
+                    app:boxCornerRadiusTopEnd="10dp"
+                    app:boxCornerRadiusTopStart="10dp"
+                    app:boxStrokeColor="@color/colorPrimary"
+                    app:boxStrokeWidth="1dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/recept_naslov_recepta"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:fontFamily="@font/rubik_regular"
+                        android:hint="Ime recepta"
+                        android:padding="12dp"
+                        android:textSize="18sp" />
+
+                    <!--android:background="@drawable/input_background" -->
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginEnd="9dp">
+
+
+                    <EditText
+                        android:id="@+id/broj_osoba_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:background="@drawable/input_background"
+                        android:drawableStart="@drawable/person_icon"
+                        android:drawableTint="@color/colorPrimary"
+                        android:fontFamily="@font/rubik_light"
+                        android:hint="Za koliko osoba?"
+                        android:inputType="numberSigned"
+                        android:padding="9dp"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toStartOf="@id/vrijeme_pripreme_input"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/vrijeme_pripreme_input"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:background="@drawable/input_background"
+                        android:drawableStart="@drawable/sat_icon"
+                        android:drawableTint="@color/colorPrimary"
+                        android:fontFamily="@font/rubik_light"
+                        android:hint="Vrijeme pripreme?"
+                        android:inputType="numberSigned"
+                        android:padding="9dp"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/broj_osoba_input"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="9dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="9dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Težina pripreme ?"
+                        android:textSize="16sp" />
+
+                    <Spinner
+                        android:id="@+id/tezinaPripreme_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="24dp"
+                        android:background="@drawable/input_background" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="Sastojci"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:id="@+id/sastojci_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="9dp"
+                    android:background="@drawable/background_outline"
+                    android:orientation="vertical"
+                    android:padding="9dp">
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dodaj_sastojak_btn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="24dp"
+                        android:background="@drawable/rounded_button_primary"
+                        android:onClick="DodajSastojak"
+                        android:padding="6dp"
+                        android:text="Dodaj sastojak"
+                        android:textSize="9sp"
+                        app:strokeColor="@color/colorPrimary" />
+
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="Koraci"
+                    android:textSize="17sp" />
+
+
+                <LinearLayout
+                    android:id="@+id/koraci_linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="9dp"
+                    android:orientation="vertical"
+                    android:paddingBottom="9dp">
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/dodaj_korak_btn"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="24dp"
+                        android:onClick="DodajKorak"
+                        android:text="Dodaj korak"
+                        android:textSize="9sp"
+                        app:strokeColor="@color/colorPrimary" />
+
+
+                </LinearLayout>
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/recept_upload_btn"
+                    style="@style/Widget.MaterialComponents.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="12dp"
+                    android:onClick="ObjaviRecept"
+                    android:padding="6dp"
+                    android:text="Objavi" />
+
+                <!-- <Button
+                     android:id="@+id/recept_upload_btn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_gravity="center"
+                     android:layout_margin="20dp"
+                     android:background="@drawable/button_background_full"
+                     android:fontFamily="@font/rubik_bold"
+                     android:onClick="ObjaviRecept"
+                     android:text="Objavi"
+                     android:textColor="#ffffff" /> -->
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/kreiranje_recepta_banner_ad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-9413566793399770/8552958386" />
+
+</RelativeLayout>

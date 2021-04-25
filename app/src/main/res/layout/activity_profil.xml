@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/profile_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfilActivity">
+
+
+    <LinearLayout
+        android:id="@+id/profile_heading"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@drawable/gradient_1"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="24dp">
+
+        <ImageView
+            android:id="@+id/profile_slika_korisnika"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center" />
+
+
+        <TextView
+            android:id="@+id/profile_ime_korisnika"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ime korisnika"
+            android:fontFamily="@font/rubik_bold"
+            android:layout_marginTop="12dp"
+            android:textSize="17sp"
+            android:textColor="#fff"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="24dp">
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/profile_settings_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/gear_icon"
+            android:tint="@color/colorPrimaryDark"
+            android:backgroundTint="#fff"
+            app:borderWidth="0dp"
+            android:layout_gravity="top|end"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="18dp"
+            app:fabSize="mini"
+            app:elevation="6dp"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/profil_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profile_heading"
+        app:tabIndicatorAnimationDuration="1000"
+        app:tabGravity="center"
+        style="@style/Widget.MaterialComponents.TabLayout"
+        app:tabMode="auto">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moji recepti"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Omiljeni recepti" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/profile_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/profil_tab_layout"/>
+
+
+
+</RelativeLayout>

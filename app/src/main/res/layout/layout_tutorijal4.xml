@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#17a65e"
+    android:gravity="center"
+    android:padding="9dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+    <ImageView
+        android:id="@+id/tutorijal_4_slika1"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recept_predjelo_field"
+        android:layout_gravity="left"
+        android:layout_margin="9dp"/>
+
+    <ImageView
+        android:id="@+id/tutorijal_4_slika2"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:src="@drawable/recept_predjelo_list"
+        android:layout_toEndOf="@id/tutorijal_4_slika1"
+        android:layout_margin="9dp"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tutorijal_4_naslov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vrsta jela"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:layout_margin="3dp"/>
+
+    <TextView
+        android:id="@+id/tutorijal_4_opis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recept_tutorijal_4"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_light"
+        android:textAlignment="center"
+        android:textSize="17sp" />
+
+
+</LinearLayout>

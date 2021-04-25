@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/recept_like_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#fff"
+        android:src="@drawable/srce_empty_icon"
+        android:tint="@color/crvena"
+        app:borderWidth="0dp"
+        app:layout_anchor="@id/slika_recepta_viewer"
+        app:layout_anchorGravity="bottom|right|end"
+        android:transitionName="receptFab"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/recept_viewer_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary">
+
+
+            <TextView
+                android:id="@+id/naslov_recepta_viewer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/rubik_bold"
+                android:text="Ime recepta"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+
+        <ImageView
+            android:id="@+id/slika_recepta_viewer"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:transitionName="slikaRecepta"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="36dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="3dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="3dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/tezina_icon"
+                        android:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/recept_viewer_tezinaPripremeText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Lako" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="6dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="3dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/person_icon"
+                        android:tint="@color/zuta" />
+
+                    <TextView
+                        android:id="@+id/recept_viewer_brojOsoba"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="6" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="6dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="3dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/sat_icon"
+                        android:tint="@color/plava" />
+
+                    <TextView
+                        android:id="@+id/recept_viewer_vrijemePripreme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="60 min"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:paddingStart="6dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="6dp"
+                android:paddingBottom="3dp">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="26dp"
+                        android:layout_marginEnd="12dp"
+                        android:src="@drawable/srce_empty_icon"
+                        android:tint="@color/crvena" />
+
+                    <TextView
+                        android:id="@+id/recept_viewer_ocjena"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="250"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/recept_viewer_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/tab_layout_indicator_2"
+            app:tabIndicatorHeight="26dp"
+            app:tabIndicatorGravity="center"
+            app:tabIndicatorFullWidth="false">
+
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sastojci"/>
+
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Priprema"/>
+
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/recept_viewer_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="49dp"/>
+
+
+    </LinearLayout>
+
+    <!-- app:behavior_peekHeight="49dp" -->
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/komentari_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="49dp"
+        app:cardCornerRadius="9dp"
+        app:cardElevation="6dp"
+        app:contentPadding="12dp"
+        app:contentPaddingTop="3dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/bottom_sheet_dragger"
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/rubik_medium"
+                    android:gravity="center_vertical"
+                    android:paddingEnd="12dp"
+                    android:text="Komentari"
+                    android:textSize="17sp" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                    android:id="@+id/dodaj_komentar_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/rubik_bold"
+                    app:icon="@drawable/add_icon"
+                    app:iconGravity="textStart"
+                    app:iconSize="20dp"
+                    android:textSize="12sp"
+                    app:iconPadding="12dp"
+                    android:text="Dodaj"
+                    android:gravity="center_vertical"/>
+
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/komentari_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:id="@+id/komentari_empty_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/no_comment_icon" />
+
+
+                <TextView
+                    android:id="@+id/komentari_empty_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/rubik_light"
+                    android:text="Trenutno ovaj recept nema komentara.\nBudite prvi koji će komentarisati !"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

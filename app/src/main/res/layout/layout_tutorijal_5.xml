@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/svijetloPlava"
+    android:gravity="center"
+    android:padding="9dp">
+
+
+    <ImageView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recept_imerecepta"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/recept_imerecepta_popunjeno"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"/>
+
+
+    <TextView
+        android:id="@+id/tutorijal_2_naslov"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IME RECEPTA"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_bold"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tutorijal_2_opis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/recept_tutorijal_5"
+        android:textColor="#fff"
+        android:fontFamily="@font/rubik_light"
+        android:textAlignment="center"
+        android:textSize="17sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,76 @@
+<resources>
+    <string name="app_name">CookIT</string>
+
+    <string name="open_drawer">Otvori drawer</string>
+    <string name="close_drawer">Zatvori drawer</string>
+
+
+    <string name="card_ime_text">Ime autora</string>
+
+    <string name="recept_bottom_sheet_text">Izaberite opciju</string>
+
+    <string name="bug_report_text">Ako ste otkrili neku grešku u aplikaciji, popunite sva polja i vaša prijava će biti proslijeđena administratorima.
+        \n\nMolimo vas da vaša prijava bude detaljna kako bi mogli otkloniti grešku.</string>
+
+    <string name="posalji_text">Pošalji</string>
+    <string name="otkazi_text">Otkaži</string>
+
+    <string name="greška_prijava_recepta_vec_prijavljen">Već ste prijavili ovaj recept</string>
+    <string name="greška_prijava_recepta_svoj">Ne možete prijaviti svoj recept !</string>
+
+
+    <string name="recept_tutorijal_1">Ovaj vodič će vas naučiti kako da kreirate kvalitetne recepte.\n
+    Pažljivo pratite sve korake ! </string>
+
+    <string name="recept_tutorijal_2">\nSlika je jedan od najvažnijih elemenata recepta !\n\n
+    Dodavanje slike je veoma jednostavno, sliku možete dodati iz galerije ili je direktno uslikati pomoću kamere.\n
+    Obratite pažnju da slike koje postavljate budu jasne i primjerene.\n\n
+    <b>Napomena:</b> Svaka neprimjerena slika će biti uklonjena a korisnik kažnjen kaznenim bodom.</string>
+
+
+    <string name="recept_tutorijal_3">\nVidljivost recepta određuje da li će recept biti vidljiv svim korisnicima aplikacije ili će biti vidljiv samo vama.\n\n
+    Ako izaberete opciju <b>Javno</b> recept će biti dodatno provjeren od strane aplikacije da li su sva polja popunjena, nakon čega će biti proslijeđen na server i biti vidljiv svima.\n\n
+    Opcija <b>Privatno</b> vam omogućava da recept sačuvate iako niste dovršili njegovo kreiranje. On neće biti vidljiv dok ga ne izmijenite na <b>Javno</b>.</string>
+
+
+    <string name="recept_tutorijal_4">\nPri kreiranju vašeg recepta, možete odabrati i kategoriju jela. Klikom na polje za odabir kategorije, dobijate listu dostupnih kategorija.\n
+    Kategorije recepata su važne radi lakšeg pronalaženja recepata.\n\n
+        <b>Primjer odabira kategorije:</b> Ako ste odlučili objaviti rusku salatu kao recept, onda odaberete kategoriju <b>"Salate"</b> \n\n
+    <b>Primjer 2:</b> Ako ste odlučili objaviti pržene kobasice kao recept, onda odaberete kategoriju <b>"Roštilj"</b></string>
+
+
+    <string name="recept_tutorijal_5">\nIme recepta je jedna od prvih stvari koje korisnici vide pretražujući recepte. Zato je važno da odaberete prikladno ime za vaš recept.
+        \nNa primjer, ako pravite pitu od višanja dobro ime tog recepta bi možda bilo <b>Pita od višanja</b>.\n
+        Tako će korisnicima koji pretražuju recepte biti jasnije o kakvom receptu se radi.
+        \n\n<b>Loši primjeri:</b> \n\nNajbolja pita na svijetu, Kolač, Torta
+    \n\n<b>Napomena:</b> Maksimalna dužina naslova recepta je 25 karaktera.</string>
+
+
+    <string name="recept_tutorijal_6">Pored dosad nabrojanih polja postoje dva bitna polja. To su vrijeme pripreme i broj osoba.
+    \n\n<b>Vrijeme pripreme:</b> Ovo polje korisnicima pobliže opisuje realno vrijeme pripreme ovog recepta (jela).
+        \nMaksimalan broj koji možete unijeti pri kreiranju recepta je 120 minuta, a minimalan je 5 minuta.
+    \n\n<b>Broj osoba:</b> Ovo polje korisnicima pruža približnu informaciju o tome koliko osoba može konzumirati obrok.
+    \nMaksimalan broj osoba je 14, a minimalan broj 1 osoba.</string>
+
+
+    <string name="recept_tutorijal_7">Ako ste do sada pretraživali recepte sigurno ste primijetili da na svakom receptu postoji težina pripreme tog recepta.
+    \nU aplikaciji postoje 3 težine:\n<b>Lako</b>\n<b>Srednje</b>\n<b>Teško</b>
+    \n\nOvo polje ustvari definiše koliko je potrebno truda uložiti kako bi se ovaj recept (jelo) kreiralo.</string>
+
+
+    <string name="recept_tutorijal_8">Osnova svakog recepta su sastojci koji su bitni za pripremu kvalitetnog jela.
+        \nZato je važno da pri kreiranju recepta unesete tačne sastojke kao i njihov udio (količinu - npr. 100 g) u samom receptu.
+        \n\nAko ste pogriješili kod unosa sastojaka već objavljenog recepta, uvijek ga možete izmijeniti kroz meni <b>Profil</b>.</string>
+
+
+    <string name="recept_tutorijal_9">Nakon sastojaka slijede koraci koji su veoma bitni za pripremu samog recepta.
+    \nSvaki korak objašnjava način upotrebe sastojaka pri pripremi određenog jela.
+    \nZato je važno pri kreiranju recepta obratiti posebnu pažnju na korake kako bi krajnji korisnici shvatili pripremu vašeg jela.</string>
+
+
+    <string name="recept_tutorijal_10">Yeey!!
+    \n\nUspješno ste prošli kroz naš vodič za kreiranje recepta.
+    \nNadamo se da ste naučili kako kreirati kvalitetan recept.
+    \n\nNe zaboravite da uvijek možete pogledati vodič i podsjetiti se kako kreirati recept!</string>
+
+</resources>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "398894613278",
+    "firebase_url": "https://cookit-8bf0a.firebaseio.com",
+    "project_id": "cookit-8bf0a",
+    "storage_bucket": "cookit-8bf0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398894613278:android:9acb217bf3429cd3707f0f",
+        "android_client_info": {
+          "package_name": "com.example.cooking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398894613278-inmne2sshm0bfkqko23jrb81olrjsl0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2cSPYAkTPRgZqOHcKkT90ez9RdPjvv-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "398894613278-inmne2sshm0bfkqko23jrb81olrjsl0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

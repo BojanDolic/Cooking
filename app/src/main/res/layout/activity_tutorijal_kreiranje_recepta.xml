@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TutorijalKreiranjeRecepta"
+    android:orientation="vertical"
+    android:background="#000">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/tutorijal_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tutorijal_tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tutorijal_viewpager"
+            app:tabBackground="@drawable/pager_dot_selector"
+            app:tabGravity="center"
+            app:tabIndicator="@null"
+            app:tabPaddingEnd="8dp"
+            app:tabPaddingStart="8dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/tutorijal_dalje_btn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:textColor="#fff"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:elevation="0dp"
+            android:drawableEnd="@drawable/next_icon"
+            />
+
+
+        <Button
+            android:id="@+id/tutorijal_nazad_btn"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:textColor="#fff"
+            android:layout_marginStart="16dp"
+            android:background="@null"
+            android:elevation="0dp"
+            android:drawableEnd="@drawable/next_icon"
+            android:rotation="180"
+            />
+
+    </FrameLayout>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical"
+    android:paddingTop="24dp"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/register_heading"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/cookit_logreg_heading"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"/>
+
+
+        <TextView
+            android:id="@+id/register_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Registrujte se!"
+            android:fontFamily="@font/rubik_black"
+            android:textSize="24sp"
+            android:layout_marginStart="14dp"/>
+
+        <TextView
+            android:id="@+id/register_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Napravite nalog da biste pristupili aplikaciji."
+            android:fontFamily="@font/rubik_regular"
+            android:textSize="15sp"
+            android:layout_marginStart="14dp"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/korisnickoime_unoslayout_register"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/korisnickoime_unos_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Korisničko ime"
+            android:inputType="textPersonName"
+            android:textAlignment="viewStart"
+            android:background="@drawable/input_background"
+            android:drawableStart="@drawable/person_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/rubik_regular"
+            android:textSize="14sp"
+            android:padding="12dp"
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_unos_register_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_unos_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/input_background"
+            android:drawableStart="@drawable/email_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/rubik_regular"
+            android:textSize="14sp"
+            android:padding="12dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lozinka_unos_register_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lozinka_unos_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Lozinka"
+            android:inputType="textPassword"
+            android:background="@drawable/input_background"
+            android:drawableStart="@drawable/lozinka_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:drawablePadding="12dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/rubik_regular"
+            android:padding="12dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/register_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registruj se"
+        android:layout_gravity="end"
+        android:layout_margin="32dp"
+        android:elevation="4dp"
+        android:fontFamily="@font/rubik_bold"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textSize="13sp"
+        android:drawableStart="@drawable/new_contact_icon"
+        android:drawablePadding="12dp"
+        android:drawableTint="#fff"
+        android:textColor="#ffffff"
+        android:background="@drawable/button_background_full"/>
+
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="Prijavite problem">
+
+        <menu>
+
+            <item
+                android:id="@+id/recept_ispravka_teksta_prijava"
+                android:title="Greška u tekstu" />
+
+            <item
+                android:id="@+id/recept_neprimjeren_sadrzaj_prijava"
+                android:title="Neprimjeren sadržaj" />
+
+
+        </menu>
+
+
+    </item>
+</menu>

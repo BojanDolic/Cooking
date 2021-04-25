@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginRegisterActivity"
+    android:orientation="vertical"
+    android:focusableInTouchMode="true">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/login_heading"
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:src="@drawable/cookit_logreg_heading"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="30dp"/>
+
+
+        <TextView
+            android:id="@+id/logreg_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prijavite se!"
+            android:fontFamily="@font/rubik_black"
+            android:textSize="24sp"
+            android:layout_marginStart="14dp"/>
+
+        <TextView
+            android:id="@+id/logreg_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Prijavite se da biste nastavili."
+            android:fontFamily="@font/rubik_regular"
+            android:textSize="15sp"
+            android:layout_marginStart="14dp"/>
+
+    </LinearLayout>
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_unos_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_unos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            android:drawableStart="@drawable/email_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/rubik_regular"
+            android:textSize="14sp"
+            android:padding="12dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lozinka_unos_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp" >
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/lozinka_unos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Lozinka"
+            android:inputType="textPassword"
+            android:drawableStart="@drawable/lozinka_icon"
+            android:drawableTint="@color/colorPrimaryDark"
+            android:drawablePadding="12dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/rubik_regular"
+            android:padding="12dp"/>
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logreg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prijavi se"
+            android:layout_gravity="end"
+            android:elevation="4dp"
+            android:fontFamily="@font/rubik_bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="12sp"
+            android:drawableStart="@drawable/enter_icon"
+            android:drawablePadding="12dp"
+            android:drawableTint="#fff"
+            android:textColor="#ffffff"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/button_background_full"/>
+
+
+        <TextView
+            android:id="@+id/reg_activity_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nemate nalog?\nKliknite ovdje !"
+            android:textAlignment="center"
+            android:fontFamily="@font/rubik_light"
+            android:textStyle="italic"
+            android:textSize="14sp"
+            android:clickable="true"
+            android:focusable="false"
+            android:textColor="#888"
+            android:paddingEnd="9dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"/>
+
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

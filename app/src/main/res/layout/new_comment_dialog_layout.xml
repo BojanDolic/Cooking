@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    app:contentPaddingLeft="24dp"
+    app:contentPaddingBottom="24dp"
+    app:contentPaddingRight="24dp">
+
+
+    <ProgressBar
+        android:id="@+id/comment_progress_bar"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+
+    <LinearLayout
+        android:id="@+id/comment_dialog_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="6dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/rubik_bold"
+            android:text="Dodajte svoj komentar"
+            android:textSize="18sp" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/new_comment_textinput_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="100dp"
+            android:hint="Unesite vaš komentar ovdje"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:boxStrokeErrorColor="@color/crvena">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/komentar_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="100dp"
+                android:fontFamily="@font/rubik_regular"/>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+       <!-- <EditText
+            android:id="@+id/komentar_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:fontFamily="@font/rubik_light"
+            android:hint="Unesite tekst komentara"
+            android:padding="6dp"
+            android:textSize="16sp" /> -->
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/comment_dialog_dodaj_komentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button_primary"
+            android:fontFamily="@font/rubik_bold"
+            android:padding="9dp"
+            android:text="Dodaj komentar"
+            android:layout_marginTop="12dp"
+            android:textSize="12sp"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="1dp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

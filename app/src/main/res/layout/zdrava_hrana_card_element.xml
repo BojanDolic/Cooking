@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="9dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/zdrava_hrana_naslov_zaglavlja"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Zašto baš jabuka?"
+                android:fontFamily="@font/rubik_medium"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:background="@drawable/button_background_full"
+                android:padding="5dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginBottom="26dp"/>
+
+
+            <TextView
+                android:id="@+id/zdrava_hrana_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reguliše šećer u krvi – fruktoza, polifenoli i dijetetska vlakna koji se nalaze u jabukama poboljšavaju metaboličku ravnotežu i usporavaju apsorpciju glukoze u krvotok.
+Reguliše pojavu zatvora i proliva – jabuke sadrže pektin koji pomaže u oba slučaja. Kod zatvora sveža jabuka pomaže, a kod proliva kao kompot.
+Štiti kosti – flavonoid florizin koji se nalazi u koži jabuke, pomaže u prevenciji gubitka koštane mase koja se povezuje sa menopauzom. Florizin se bori protiv upala i proizvodnje slobodnih radikala koji dovode do gubitka koštane mase.
+Smanjuje holesterol – pektin i polifenoli (antioksidansi) smanjuju nivo LDL (loš holesterol). Polifenoli sprečavaju oksidaciju ćelija te tako čuvaju srčane mišiće i krvne sudove."
+                android:fontFamily="@font/rubik_regular"
+                android:textSize="17sp"
+                android:layout_marginTop="9dp"
+                android:paddingStart="3dp"/>
+
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>
