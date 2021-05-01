@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cooking">
+    package="com.electroniccode.cooking">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -25,25 +25,25 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9413566793399770~5937391572"/>
+            android:value="ca-app-pub-3513515215892202~5801175105"/>
 
 
-        <activity android:name=".TutorijalKreiranjeRecepta"
-            android:screenOrientation="portrait"></activity>
+        <activity android:name="com.electroniccode.cooking.TutorijalKreiranjeRecepta"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ZdravaHranaViewer"
+            android:name="com.electroniccode.cooking.ZdravaHranaViewer"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ZdravaHrana"
+        <activity android:name="com.electroniccode.cooking.ZdravaHrana"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ProfilActivity"
+            android:name="com.electroniccode.cooking.ProfilActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ReceptViewerActivity"
+            android:name="com.electroniccode.cooking.ReceptViewerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BugReportActivity"
+            android:name="com.electroniccode.cooking.BugReportActivity"
             android:screenOrientation="portrait" />
 
         <provider
@@ -57,17 +57,17 @@
         </provider>
 
         <activity
-            android:name=".KreiranjeRecepta"
+            android:name="com.electroniccode.cooking.KreiranjeRecepta"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MyFridgeActivity"
+            android:name="com.electroniccode.cooking.MyFridgeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppBarStyle" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.electroniccode.cooking.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginRegisterActivity"
+            android:name="com.electroniccode.cooking.LoginRegisterActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,7 +77,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.electroniccode.cooking.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

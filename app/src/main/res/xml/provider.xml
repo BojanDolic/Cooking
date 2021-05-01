@@ -3,7 +3,7 @@
 
     <external-path
         name="cookit_slike"
-        path="Android/data/com.example.cooking/files/Pictures" />
+        path="Android/data/com.electroniccode.cooking/files/Pictures" />
     <external-files-path
         name="external_files"
         path="." />

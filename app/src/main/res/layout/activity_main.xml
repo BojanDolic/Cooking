@@ -23,10 +23,11 @@
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/banner_adview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 app:adSize="BANNER"
-                app:adUnitId="ca-app-pub-9413566793399770/8552958386"/>
+                app:adUnitId="ca-app-pub-3513515215892202/2951650485" />
 
 
             <androidx.cardview.widget.CardView

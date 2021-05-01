@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".TutorijalKreiranjeRecepta"
     android:orientation="vertical"
-    android:background="#000">
+    android:background="#DD2525">
 
 
     <androidx.viewpager.widget.ViewPager
@@ -15,32 +15,36 @@
         android:layout_height="wrap_content"/>
 
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+        android:layout_alignParentBottom="true">
 
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tutorijal_tablayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/tutorijal_viewpager"
+            android:layout_centerHorizontal="true"
             app:tabBackground="@drawable/pager_dot_selector"
             app:tabGravity="center"
             app:tabIndicator="@null"
+            android:backgroundTint="#00FFFFFF"
             app:tabPaddingEnd="8dp"
             app:tabPaddingStart="8dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:padding="0dp"
+            android:layout_margin="0dp"/>
 
         <Button
             android:id="@+id/tutorijal_dalje_btn"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:textColor="#fff"
+            android:drawableTint="#fff"
             android:layout_marginEnd="16dp"
-            android:background="@null"
+            android:layout_alignParentEnd="true"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:elevation="0dp"
             android:drawableEnd="@drawable/next_icon"
             />
@@ -51,15 +55,16 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
-            android:textColor="#fff"
+            android:drawableTint="#fff"
+            android:layout_alignParentStart="true"
             android:layout_marginStart="16dp"
-            android:background="@null"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:elevation="0dp"
             android:drawableEnd="@drawable/next_icon"
             android:rotation="180"
             />
 
-    </FrameLayout>
+    </RelativeLayout>
 
 
 
