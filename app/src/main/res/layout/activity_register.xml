@@ -52,8 +52,11 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        >
-
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/korisnickoime_unos_register"
@@ -62,14 +65,12 @@
             android:hint="Korisničko ime"
             android:inputType="textPersonName"
             android:textAlignment="viewStart"
-            android:background="@drawable/input_background"
             android:drawableStart="@drawable/person_icon"
             android:drawableTint="@color/colorPrimaryDark"
             android:drawablePadding="12dp"
             android:fontFamily="@font/rubik_regular"
             android:textSize="14sp"
-            android:padding="12dp"
-            />
+            android:padding="12dp" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +81,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp">
+        android:layout_marginStart="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -89,7 +95,6 @@
             android:layout_height="match_parent"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
-            android:background="@drawable/input_background"
             android:drawableStart="@drawable/email_icon"
             android:drawableTint="@color/colorPrimaryDark"
             android:drawablePadding="12dp"
@@ -107,7 +112,11 @@
         android:layout_height="60dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        >
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -116,7 +125,6 @@
             android:layout_height="match_parent"
             android:hint="Lozinka"
             android:inputType="textPassword"
-            android:background="@drawable/input_background"
             android:drawableStart="@drawable/lozinka_icon"
             android:drawableTint="@color/colorPrimaryDark"
             android:drawablePadding="12dp"

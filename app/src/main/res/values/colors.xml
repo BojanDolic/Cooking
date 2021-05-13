@@ -13,6 +13,7 @@
     <color name="ljubtamna">#a303a8</color>
 
     <color name="colorPrimaryAlpha">#3CFF2D55</color>
+    <color name="card_stroke_color">#dadce0</color>
 
 
 </resources>
