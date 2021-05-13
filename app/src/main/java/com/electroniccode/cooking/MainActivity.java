@@ -271,65 +271,53 @@ public class MainActivity extends AppCompatActivity
 
         Intent i;
 
-        switch (id) {
+        if (id == R.id.odjavise_drawerbtn) {
+            if (auth != null) {
+                Map<String, Object> userData = new HashMap<>();
+                userData.put("korisnikovToken", "");
 
-            case R.id.odjavise_drawerbtn:
-                if (auth != null) {
-                    Map<String, Object> userData = new HashMap<>();
-                    userData.put("korisnikovToken", "");
+                db.collection("korisnici").document(user.getUid()).update(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
 
-                    db.collection("korisnici").document(user.getUid()).update(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-
-                            Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            auth.signOut();
-                            finish();
+                        Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        auth.signOut();
+                        finish();
 
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
 
-                            Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                            auth.signOut();
-                            finish();
+                        Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        auth.signOut();
+                        finish();
 
-                        }
-                    });
-                }
+                    }
+                });
+            }
 
-                break;
-
-            /*case R.id.myfridge_drawerbtn:
+                /*case R.id.myfridge_drawerbtn:
                 i = new Intent(MainActivity.this, MyFridgeActivity.class);
                 startActivity(i);
                 break; */
-
-            case R.id.prijavibug_drawerbtn:
-                i = new Intent(MainActivity.this, BugReportActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.profil_drawerbtn:
-                i = new Intent(MainActivity.this, ProfilActivity.class);
-                startActivity(i);
-                break;
-
-            case R.id.zdrava_hrana_drawerbtn:
-                i = new Intent(MainActivity.this, ZdravaHrana.class);
-                startActivity(i);
-                break;
-
-            case R.id.tutorijal_drawerbtn:
-                i = new Intent(MainActivity.this, TutorijalKreiranjeRecepta.class);
-                startActivity(i);
-                break;
+        } else if (id == R.id.prijavibug_drawerbtn) {
+            i = new Intent(MainActivity.this, BugReportActivity.class);
+            startActivity(i);
+        } else if (id == R.id.profil_drawerbtn) {
+            i = new Intent(MainActivity.this, ProfilActivity.class);
+            startActivity(i);
+        } else if (id == R.id.zdrava_hrana_drawerbtn) {
+            i = new Intent(MainActivity.this, ZdravaHrana.class);
+            startActivity(i);
+        } else if (id == R.id.tutorijal_drawerbtn) {
+            i = new Intent(MainActivity.this, TutorijalKreiranjeRecepta.class);
+            startActivity(i);
 
             /*case R.id.filtriraj_drawerBtn:
                 FilterFragment filterFragment = new FilterFragment();
@@ -428,7 +416,7 @@ public class MainActivity extends AppCompatActivity
 
         InterstitialAd.load(
                 this,
-                "ca-app-pub-3513515215892202/2232986253",
+                "ca-app-pub-3485416724873570/8944979668",
                 interAdRequest,
                 new InterstitialAdLoadCallback() {
                     @Override

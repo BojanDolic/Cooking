@@ -1079,7 +1079,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
     private void loadInterAd() {
         InterstitialAd.load(
                 this,
-                "ca-app-pub-3513515215892202/2232986253",
+                "ca-app-pub-3485416724873570/8944979668",
                 adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override

@@ -34,10 +34,10 @@
                     android:src="@color/colorPrimary"
                     android:transitionName="slikaRecepta"/>
 
-                <ImageView
+                <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bottom_shade"/>
+                    android:background="@drawable/image_bottom_shadow"/>
 
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:fontFamily="@font/rubik_bold"
                     android:lines="1"
                     android:padding="3dp"
-                    android:text="Naziv jela"
+                    android:text="Naziv"
                     android:textSize="17sp" />
 
 
@@ -99,7 +99,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="1"
                             android:src="@drawable/tezina_icon"
-                            android:tint="@color/colorPrimary" />
+                            app:tint="@color/colorPrimary" />
 
                         <TextView
                             android:id="@+id/tezina_pripreme_text"
@@ -119,7 +119,7 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:src="@drawable/person_icon"
-                            android:tint="@color/zuta"/>
+                            app:tint="@color/zuta"/>
 
                         <TextView
                             android:id="@+id/broj_osoba_text"
@@ -139,7 +139,7 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:src="@drawable/sat_icon"
-                            android:tint="#0777e0" />
+                            app:tint="#0777e0" />
 
                         <TextView
                             android:id="@+id/vrijeme_pripreme_text"
@@ -159,7 +159,7 @@
                             android:layout_column="2"
                             android:layout_weight="1"
                             android:src="@drawable/srce_empty_icon"
-                            android:tint="@color/crvena" />
+                            app:tint="@color/crvena" />
 
                         <TextView
                             android:id="@+id/ocjena_recepta_text"
