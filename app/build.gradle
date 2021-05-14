@@ -47,6 +47,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:20.0.0'
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC'
+    implementation 'com.github.dhaval2404:imagepicker:1.8'
+
     //implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly'
 
     //implementation 'com.google.android.gms:play-services-ads:20.0.0'

@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
+import androidx.core.content.PermissionChecker;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -65,6 +67,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,6 +129,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
 
     File globalFile;
+    File selectedGalleryFile;
     //File slikaReceptaFajl;
     Uri slikaUri;
     String filePath;
@@ -481,18 +485,16 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
             // Kada izabere da doda sliku iz galerije
 
             case GALERIJA_KOD:
-                if (resultCode == RESULT_OK) {
+                if (resultCode == RESULT_OK && data != null) {
 
-                    if (data.getData() != null) {
+                    //Uri pickedImageUri = (Uri) data.getParcelableExtra(FilePickerConst.KEY_SELECTED_MEDIA);
 
-                        Uri uri = data.getData();
+                    File imageFile = ImagePicker.Companion.getFile(data);
 
-                        try {
-                            globalFile = new Compressor(KreiranjeRecepta.this).compressToFile(new File(getImagePathFromUri(uri)));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    Uri uri = data.getData();
 
+                    try {
+                        globalFile = new Compressor(KreiranjeRecepta.this).compressToFile(imageFile);
 
                         Glide.with(this)
                                 .load(globalFile)
@@ -501,9 +503,13 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                                 .placeholder(R.drawable.slika_placeholder)
                                 .into(slikaRecepta);
 
-                        Log.d(TAG, "onActivityResult: PATH GALERIJE  JE " + filePath);
-
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
+
+                    Log.d(TAG, "onActivityResult: PATH GALERIJE  JE " + filePath);
+
 
                 }
                 break;
@@ -1013,7 +1019,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
                                 final Map<String, Object> podaciRecepta = new HashMap<>();
 
-                                podaciRecepta.put("naslovRecepta", new ArrayList<String>().add(naslovReceptaText));
+                                podaciRecepta.put("naslovRecepta", Arrays.asList(naslovReceptaText));
                                 podaciRecepta.put("privatnaObjava", privatnaObjava);
                                 podaciRecepta.put("BrojSvidjanja", 0);
                                 podaciRecepta.put("imeAutora", user.getUid());
@@ -1036,6 +1042,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                                     podaciRecepta.put("vrijemePripreme", getVrijemePripreme(vrijemeIzrade_input));
 
                                 podaciRecepta.put("slikaRecepta", uri.toString());
+                                podaciRecepta.put("kategorijaRecepta", kategorijaRecepta);
                                 podaciRecepta.put("lokacijaSlike", docRef.getName());
 
                                 objaveKorisnikaCollection.add(podaciRecepta).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -1265,10 +1272,18 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
         if (EasyPermissions.hasPermissions(this, permisije)) {
 
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            /*FilePickerBuilder.getInstance()
+                    .pickPhoto(this, GALERIJA_KOD);*/
+
+            ImagePicker.Companion.with(this)
+                    .galleryOnly()
+                    .start(GALERIJA_KOD);
+
+            /*Intent intent = new Intent(Intent.ACTION_PICK);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
             //intent.putExtra(MediaStore.EXTRA_OUTPUT, slikaUri);
-            startActivityForResult(intent, GALERIJA_KOD);
+            startActivityForResult(intent, GALERIJA_KOD);*/
 
         } else {
             EasyPermissions.requestPermissions(this, "R", permReqCode, permisije);
