@@ -37,7 +37,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/bottom_shadow_scrim"/>
+                    android:background="@drawable/image_bottom_shadow"/>
 
 
             </RelativeLayout>

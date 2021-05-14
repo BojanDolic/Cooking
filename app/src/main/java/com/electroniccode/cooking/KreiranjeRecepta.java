@@ -58,10 +58,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.core.UserData;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -70,7 +68,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -131,8 +128,6 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
 
     File globalFile;
-    File selectedGalleryFile;
-    //File slikaReceptaFajl;
     Uri slikaUri;
     String filePath;
 
@@ -254,66 +249,63 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
             if (Document_PATH != null) {
 
-                db.document(Document_PATH).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot snapshot) {
+                db.document(Document_PATH).get().addOnSuccessListener(snapshot -> {
 
-                        if (snapshot.exists()) {
+                    if (snapshot.exists()) {
 
-                            Recept recept = snapshot.toObject(Recept.class);
+                        Recept recept = snapshot.toObject(Recept.class);
 
 
-                            if (recept.getSlikaRecepta() != null && !recept.getSlikaRecepta().isEmpty()) {
-                                Glide.with(KreiranjeRecepta.this)
-                                        .load(recept.getSlikaRecepta())
-                                        .into(slikaRecepta);
+                        if (recept.getSlikaRecepta() != null && !recept.getSlikaRecepta().isEmpty()) {
+                            Glide.with(KreiranjeRecepta.this)
+                                    .load(recept.getSlikaRecepta())
+                                    .into(slikaRecepta);
 
-                                hasSliku = true;
-                            }
-
-
-                            naslovRecepta.setText(recept.getNaslovRecepta());
-                            tezinaPripremeSpinner.setSelection(getSpinnerValueIndex(tezinaPripremeSpinner, recept.getTezinu(recept.getTezinaPripreme())));
-                            vrstaObjaveSpinner.setSelection(getSpinnerValueIndex(vrstaObjaveSpinner, recept.convertVrstuObjave(recept.getPrivatnuObjavu())));
-                            kategorijaReceptaSpinner.setSelection(getSpinnerValueIndex(kategorijaReceptaSpinner, recept.getKategorijaJela()));
-                            brojOsoba_input.setText(String.valueOf(recept.getBrojOsoba()));
-                            vrijemeIzrade_input.setText(String.valueOf(recept.getVrijemePripreme()));
-
-                            for (int i = 0; i < recept.getSastojci().size(); i++) {
-                                View v = getLayoutInflater().inflate(R.layout.sastojci_field, sastojciLayout, false);
-
-                                sastojciLayout.addView(v, receptiNum++);
-
-                                EditText editText = v.findViewById(R.id.sastojci_edittext);
-                                editText.setText(recept.getSastojci().get(i));
-
-                            }
-                            //koraciNum = recept.getKoraci().size();
-                            Log.d(TAG, "SVI KORACI: " + recept.getKoraci());
-                            for (int i = 0; i < recept.getKoraci().size(); i++) {
-
-
-                                View v = getLayoutInflater().inflate(R.layout.korak_field, koraciLayout, false);
-
-                                koraciLayout.addView(v, koraciNum++);
-
-                                EditText editText = (EditText) v.findViewById(R.id.korak_edittext);
-                                editText.setText(recept.getKoraci().get(i));
-
-                                //kor.add(editText);
-                            }
-
-                            uploadEditButton.setText("Ažuriraj");
-
-                            dialog.dismiss();
-
-
-                        } else {
-                            dialog.dismiss();
-                            finish();
+                            hasSliku = true;
                         }
 
+
+                        naslovRecepta.setText(recept.getNaslovRecepta());
+                        tezinaPripremeSpinner.setSelection(getSpinnerValueIndex(tezinaPripremeSpinner, recept.getTezinu(recept.getTezinaPripreme())));
+                        vrstaObjaveSpinner.setSelection(getSpinnerValueIndex(vrstaObjaveSpinner, recept.convertVrstuObjave(recept.getPrivatnuObjavu())));
+                        kategorijaReceptaSpinner.setSelection(getSpinnerValueIndex(kategorijaReceptaSpinner, recept.getKategorijaJela()));
+                        brojOsoba_input.setText(String.valueOf(recept.getBrojOsoba()));
+                        vrijemeIzrade_input.setText(String.valueOf(recept.getVrijemePripreme()));
+
+                        for (int i = 0; i < recept.getSastojci().size(); i++) {
+                            View v1 = getLayoutInflater().inflate(R.layout.sastojci_field, sastojciLayout, false);
+
+                            sastojciLayout.addView(v1, receptiNum++);
+
+                            EditText editText = v1.findViewById(R.id.sastojci_edittext);
+                            editText.setText(recept.getSastojci().get(i));
+
+                        }
+                        //koraciNum = recept.getKoraci().size();
+                        Log.d(TAG, "SVI KORACI: " + recept.getKoraci());
+                        for (int i = 0; i < recept.getKoraci().size(); i++) {
+
+
+                            View v1 = getLayoutInflater().inflate(R.layout.korak_field, koraciLayout, false);
+
+                            koraciLayout.addView(v1, koraciNum++);
+
+                            EditText editText = (EditText) v1.findViewById(R.id.korak_edittext);
+                            editText.setText(recept.getKoraci().get(i));
+
+                            //kor.add(editText);
+                        }
+
+                        uploadEditButton.setText("Ažuriraj");
+
+                        dialog.dismiss();
+
+
+                    } else {
+                        dialog.dismiss();
+                        finish();
                     }
+
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
@@ -1140,19 +1132,9 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                                                 showInterAd();
                                                 dialog.dismiss();
                                             }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                dialog.dismiss();
-                                            }
-                                        });
+                                        }).addOnFailureListener(e -> dialog.dismiss());
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        dialog.dismiss();
-                                    }
-                                });
+                                }).addOnFailureListener(e -> dialog.dismiss());
 
                             }
                         });
@@ -1419,9 +1401,9 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
         //return null;
     }
 
-    private String getFilePath(Intent data) {
+    /*private String getFilePath(Intent data) {
         return getImageFromPath(data);
-    }
+    }*/
 
     private String getImageFromPath(Intent data) {
 
