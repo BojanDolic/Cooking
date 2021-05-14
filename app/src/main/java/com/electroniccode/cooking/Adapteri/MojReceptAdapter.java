@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.electroniccode.cooking.R;
-import com.electroniccode.cooking.Recept;
+import com.electroniccode.cooking.klase.Recept;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,13 +45,13 @@ public class MojReceptAdapter extends FirestoreRecyclerAdapter<Recept, MojRecept
     @Override
     protected void onBindViewHolder(@NonNull MojReceptHolder holder, int position, @NonNull Recept model) {
 
-        holder.nazivRecepta.setText(model.getNaslovRecepta().get(0));
+        holder.nazivRecepta.setText(model.getNaslovRecepta());
         holder.tezinaPripremeRecepta.setText(model.getTezinu(model.getTezinaPripreme()));
         holder.brojOsoba.setText(String.format(Locale.getDefault(), "%d", model.getBrojOsoba()));
         holder.vrijemePripreme.setText(String.format(Locale.getDefault(), "%d m", model.getVrijemePripreme()));
         holder.ocjena.setText(String.format(Locale.getDefault(), "%d", model.getBrojSvidjanja()));
 
-        Log.d("TEST", "onBindViewHolder: " + model.getNaslovRecepta().get(0));
+        Log.d("TEST", "onBindViewHolder: " + model.getNaslovRecepta());
 
         holder.autorInfo.setVisibility(View.GONE);
 

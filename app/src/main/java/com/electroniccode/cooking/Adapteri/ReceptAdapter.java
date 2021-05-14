@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.electroniccode.cooking.R;
-import com.electroniccode.cooking.Recept;
+import com.electroniccode.cooking.klase.Recept;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -42,7 +42,7 @@ public class ReceptAdapter extends FirestorePagingAdapter<Recept, ReceptAdapter.
     protected void onBindViewHolder(@NonNull final ReceptHolder holder, int position, @NonNull Recept model) {
 
 
-        holder.nazivRecepta.setText(model.getNaslovRecepta().get(0));
+        holder.nazivRecepta.setText(model.getNaslovRecepta());
         holder.tezinaPripremeRecepta.setText(model.getTezinu(model.getTezinaPripreme()));
         holder.brojOsoba.setText(String.format(Locale.getDefault(), "%d", model.getBrojOsoba()));
         holder.vrijemePripreme.setText(String.format(Locale.getDefault(), "%d m", model.getVrijemePripreme()));

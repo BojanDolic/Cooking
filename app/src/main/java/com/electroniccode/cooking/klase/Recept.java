@@ -1,5 +1,7 @@
-package com.electroniccode.cooking;
+package com.electroniccode.cooking.klase;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.PropertyName;
 
 import java.util.List;
@@ -7,12 +9,14 @@ import java.util.List;
 public class Recept {
 
     @PropertyName("naslovRecepta")
-    private List<String> naslovRecepta;
+    private String naslovRecepta;
     private String imeAutora;
-    private String slikaAutora;
+    @Exclude private String slikaAutora;
     private String slikaRecepta;
     private String vrstaObjave;
     private String kategorijaRecepta;
+    private String lokacijaSlike;
+    private Timestamp datum;
 
 
     private List<String> koraci;
@@ -20,17 +24,20 @@ public class Recept {
 
     private int vrijemePripreme;
     private int tezinaPripreme;
+    //private final long brojSvidjanja;
     private int brojOsoba;
-    private int BrojSvidjanja;
+    private int brojPrijava;
+    private int brojPrekrsaja;
+    private long brojSvidjanja;
     private boolean privatnaObjava;
 
 
 
-    public Recept() {
+    public Recept(String naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci, List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long brojSvidjanja, String kategorijaRecepta, Timestamp datum, String autor, String lokacijaSlike, int brojPrijava, int brojPrekrsaja) {
     }
 
-    public Recept(List<String> naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci,
-                  List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, int BrojSvidjanja,
+    /*public Recept(String naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci,
+                  List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long BrojSvidjanja,
                   String kategorijaRecepta) {
         this.naslovRecepta = naslovRecepta;
         this.imeAutora = imeAutora;
@@ -42,8 +49,43 @@ public class Recept {
         this.vrijemePripreme = vrijemePripreme;
         this.tezinaPripreme = tezinaPripreme;
         this.brojOsoba = brojOsoba;
-        this.BrojSvidjanja = BrojSvidjanja;
+        this.brojSvidjanja = BrojSvidjanja;
         this.kategorijaRecepta = kategorijaRecepta;
+    }*/
+
+    public Recept(
+            String naslovRecepta,
+            String kategorijaRecepta,
+            String autor,
+            String slikaRecepta,
+            Timestamp datum,
+            String lokacijaSlike,
+            List<String> sastojci,
+            List<String> koraci,
+            boolean privatnaObjava,
+            int vrijemePripreme,
+            int brojOsoba,
+            int tezinaPripreme,
+            long brojSvidjanja,
+            int brojPrijava,
+            int brojPrekrsaja
+            ) {
+        this.naslovRecepta = naslovRecepta;
+        this.kategorijaRecepta = kategorijaRecepta;
+        this.imeAutora = autor;
+        this.slikaRecepta = slikaRecepta;
+        this.datum = datum;
+        this.lokacijaSlike = lokacijaSlike;
+        this.sastojci = sastojci;
+        this.koraci = koraci;
+        this.privatnaObjava = privatnaObjava;
+        this.vrijemePripreme = vrijemePripreme;
+        this.brojOsoba = brojOsoba;
+        this.tezinaPripreme = tezinaPripreme;
+        this.brojSvidjanja = brojSvidjanja;
+        this.brojPrijava = brojPrijava;
+        this.brojPrekrsaja = brojPrekrsaja;
+
     }
 
 
@@ -91,19 +133,19 @@ public class Recept {
         this.brojOsoba = brojOsoba;
     }
 
-    public int getBrojSvidjanja() {
-        return BrojSvidjanja;
+    public long getBrojSvidjanja() {
+        return brojSvidjanja;
     }
 
-    public void setBrojSvidjanja(int brojSvidjanja) {
-        this.BrojSvidjanja = brojSvidjanja;
+    public void setBrojSvidjanja(long brojSvidjanja) {
+        this.brojSvidjanja = brojSvidjanja;
     }
 
-    public List<String> getNaslovRecepta() {
+    public String getNaslovRecepta() {
         return naslovRecepta;
     }
 
-    public void setNaslovRecepta(List<String> naslovRecepta) {
+    public void setNaslovRecepta(String naslovRecepta) {
         this.naslovRecepta = naslovRecepta;
     }
 
@@ -173,4 +215,35 @@ public class Recept {
     }
 
 
+    public Timestamp getDatum() {
+        return datum;
+    }
+
+    public void setDatum(Timestamp datum) {
+        this.datum = datum;
+    }
+
+    public String getLokacijaSlike() {
+        return lokacijaSlike;
+    }
+
+    public void setLokacijaSlike(String lokacijaSlike) {
+        this.lokacijaSlike = lokacijaSlike;
+    }
+
+    public int getBrojPrekrsaja() {
+        return brojPrekrsaja;
+    }
+
+    public void setBrojPrekrsaja(int brojPrekrsaja) {
+        this.brojPrekrsaja = brojPrekrsaja;
+    }
+
+    public int getBrojPrijava() {
+        return brojPrijava;
+    }
+
+    public void setBrojPrijava(int brojPrijava) {
+        this.brojPrijava = brojPrijava;
+    }
 }

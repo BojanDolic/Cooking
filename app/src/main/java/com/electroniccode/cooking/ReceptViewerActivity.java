@@ -35,6 +35,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.electroniccode.cooking.Adapteri.KomentarAdapter;
 import com.electroniccode.cooking.Adapteri.ReceptViewPagerAdapter;
+import com.electroniccode.cooking.klase.Recept;
 import com.electroniccode.cooking.util.Utils;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.ads.AdRequest;
@@ -545,7 +546,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                 .into(slikaRecepta);
 
 
-        naslovRecepta.setText(recept.getNaslovRecepta().get(0));
+        naslovRecepta.setText(recept.getNaslovRecepta());
 
         tezinaPripreme.setText(recept.getTezinu(recept.getTezinaPripreme()));
         brojOsoba.setText(String.format(Locale.getDefault(), "%d", recept.getBrojOsoba()));

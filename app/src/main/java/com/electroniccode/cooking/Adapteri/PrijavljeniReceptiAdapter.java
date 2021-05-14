@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.electroniccode.cooking.R;
-import com.electroniccode.cooking.Recept;
+import com.electroniccode.cooking.klase.Recept;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,7 +53,7 @@ public class PrijavljeniReceptiAdapter extends FirestoreRecyclerAdapter<Recept, 
     @Override
     protected void onBindViewHolder(@NonNull final ViewHolder holder, final int position, @NonNull final Recept model) {
 
-        holder.nazivRecepta.setText(model.getNaslovRecepta().get(0));
+        holder.nazivRecepta.setText(model.getNaslovRecepta());
 
         glide.load(model.getSlikaRecepta())
                 .centerCrop()

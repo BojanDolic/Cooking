@@ -20,7 +20,7 @@ import com.electroniccode.cooking.Adapteri.MojReceptAdapter;
 import com.electroniccode.cooking.CustomToast;
 import com.electroniccode.cooking.KreiranjeRecepta;
 import com.electroniccode.cooking.R;
-import com.electroniccode.cooking.Recept;
+import com.electroniccode.cooking.klase.Recept;
 import com.electroniccode.cooking.ReceptViewerActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;

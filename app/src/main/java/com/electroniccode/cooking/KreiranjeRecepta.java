@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
-import androidx.core.content.PermissionChecker;
 
 import android.Manifest;
 import android.animation.Animator;
@@ -36,10 +35,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.electroniccode.cooking.klase.Recept;
+import com.electroniccode.cooking.klase.ReceptBuilder;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
@@ -67,7 +67,6 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -104,6 +103,8 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
     int tezinaPripreme = 0;
     boolean azuriranje = false;
     boolean hasSliku = false;
+
+    private Recept recept;
 
     private List<EditText> sastojci = new ArrayList<>();
 
@@ -270,7 +271,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                             }
 
 
-                            naslovRecepta.setText(recept.getNaslovRecepta().get(0));
+                            naslovRecepta.setText(recept.getNaslovRecepta());
                             tezinaPripremeSpinner.setSelection(getSpinnerValueIndex(tezinaPripremeSpinner, recept.getTezinu(recept.getTezinaPripreme())));
                             vrstaObjaveSpinner.setSelection(getSpinnerValueIndex(vrstaObjaveSpinner, recept.convertVrstuObjave(recept.getPrivatnuObjavu())));
                             kategorijaReceptaSpinner.setSelection(getSpinnerValueIndex(kategorijaReceptaSpinner, recept.getKategorijaJela()));
@@ -522,12 +523,12 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
      * Ova funkcija je finalna pri kreiranju recepta
      * U njoj se formira recept i šalje na server
      *
-     * @param storageReference
-     * @param slika
-     * @param naslovReceptaTxt
-     * @param dialog
-     * @param sastojci
-     * @param koraci
+     * @param storageReference referenca na kolekciju
+     * @param slika slika koja se upload
+     * @param naslovReceptaTxt naslov recepta
+     * @param dialog dialog koji se prikazuje pri kreiranju
+     * @param sastojci lista sastojaka
+     * @param koraci lista koraka
      */
 
 
@@ -550,13 +551,31 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
                             //List<String> sastojci = getSastojke();
 
-                            final Map<String, Object> podaciRecepta = new HashMap<>();
-                            podaciRecepta.put("naslovRecepta", Arrays.asList(naslovReceptaTxt));
-                            podaciRecepta.put("datum", Timestamp.now());
-                            podaciRecepta.put("BrojSvidjanja", 0);
-                            podaciRecepta.put("brojPrijava", 0);
-                            podaciRecepta.put("brojPrekrsaja", 0);
-                            podaciRecepta.put("imeAutora", user.getUid());
+                            recept = new ReceptBuilder()
+                                    .setNaslovRecepta(naslovReceptaTxt)
+                                    .setAutor(user.getUid())
+                                    .setSastojci(sastojci.size() > 0 ? sastojci : new ArrayList<>())
+                                    .setKoraci(koraci.size() > 0 ? koraci : new ArrayList<>())
+                                    .setTezinaPripreme(tezinaPripreme)
+                                    .setPrivatnaObjava(privatnaObjava)
+                                    .setBrojOsoba(getBrojOsoba(brojOsoba_input))
+                                    .setVrijemePripreme(getVrijemePripreme(vrijemeIzrade_input))
+                                    .setKategorijaRecepta(kategorijaRecepta)
+                                    .setSlikaRecepta(task.getResult().toString())
+                                    .setLokacijaSlike(storageReference.getName())
+                                    .setBrojSvidjanja(0)
+                                    .setBrojPrekrsaja(0)
+                                    .setBrojPrijava(0)
+                                    .setDatum(Timestamp.now())
+                                    .createRecept();
+
+                            /*final Map<String, Object> podaciRecepta = new HashMap<>();
+                            //podaciRecepta.put("naslovRecepta", Arrays.asList(naslovReceptaTxt));
+                            //podaciRecepta.put("datum", Timestamp.now());
+                            //podaciRecepta.put("BrojSvidjanja", 0);
+                            //podaciRecepta.put("brojPrijava", 0);
+                            //podaciRecepta.put("brojPrekrsaja", 0);
+                            //podaciRecepta.put("imeAutora", user.getUid());
 
                             if (sastojci.size() > 0)
                                 podaciRecepta.put("sastojci", getSastojke());
@@ -568,43 +587,40 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                             else
                                 podaciRecepta.put("koraci", new ArrayList<String>());
 
-                            podaciRecepta.put("tezinaPripreme", tezinaPripreme);
-                            podaciRecepta.put("privatnaObjava", privatnaObjava);
-                            podaciRecepta.put("brojOsoba", getBrojOsoba(brojOsoba_input));
-                            podaciRecepta.put("vrijemePripreme", getVrijemePripreme(vrijemeIzrade_input));
-                            podaciRecepta.put("kategorijaRecepta", kategorijaRecepta);
-                            podaciRecepta.put("lokacijaSlike", storageReference.getName());
+                            //podaciRecepta.put("tezinaPripreme", tezinaPripreme);
+                            //podaciRecepta.put("privatnaObjava", privatnaObjava);
+                            //podaciRecepta.put("brojOsoba", getBrojOsoba(brojOsoba_input));
+                            //podaciRecepta.put("vrijemePripreme", getVrijemePripreme(vrijemeIzrade_input));
+                            //podaciRecepta.put("kategorijaRecepta", kategorijaRecepta);
+                            //podaciRecepta.put("lokacijaSlike", storageReference.getName());
 
 
                             try {
                                 podaciRecepta.put("slikaRecepta", task.getResult().toString());
                             } catch (NullPointerException e) {
                                 podaciRecepta.put("slikaRecepta", "");
-                            }
+                            }*/
 
-                            db.collection("objaveKorisnika/").add(podaciRecepta).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                            db.collection("objaveKorisnika/").add(recept).addOnCompleteListener(task1 -> {
 
-                                    if (task.isSuccessful()) {
+                                if (task1.isSuccessful()) {
 
-                                        String id = task.getResult().getId();
+                                    String id = task1.getResult().getId();
 
-                                        db.collection("korisnici").document(user.getUid()).update("objavljeniRecepti", FieldValue.arrayUnion(id)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
+                                    db.collection("korisnici").document(user.getUid()).update("objavljeniRecepti", FieldValue.arrayUnion(id)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task1) {
 
-                                                dialog.cancel();
-                                                showInterAd();
+                                            dialog.cancel();
+                                            showInterAd();
 
 
-                                            }
-                                        });
+                                        }
+                                    });
 
-
-                                    }
 
                                 }
+
                             });
                         }
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.RequestManager;
 import com.electroniccode.cooking.Adapteri.PrijavljeniReceptiAdapter;
 import com.electroniccode.cooking.R;
-import com.electroniccode.cooking.Recept;
+import com.electroniccode.cooking.klase.Recept;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;

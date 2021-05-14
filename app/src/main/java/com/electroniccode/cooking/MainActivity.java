@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.electroniccode.cooking.Adapteri.ReceptAdapter;
 import com.electroniccode.cooking.Fragmenti.FilterFragment;
+import com.electroniccode.cooking.klase.Recept;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdListener;
