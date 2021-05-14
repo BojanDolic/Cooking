@@ -2,24 +2,26 @@ package com.electroniccode.cooking.klase;
 
 import com.google.firebase.Timestamp;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReceptBuilder {
-    private String naslovRecepta;
-    private String imeAutora;
-    private String slikaAutora;
-    private String slikaRecepta;
+    private String naslovRecepta = "";
+    private String imeAutora = "";
+    private String slikaRecepta = "";
     private boolean privatnaObjava;
-    private List<String> koraci;
-    private List<String> sastojci;
+    private List<String> koraci = new ArrayList<>();
+    private List<String> sastojci = new ArrayList<>();
     private int vrijemePripreme;
     private int tezinaPripreme;
     private int brojOsoba;
     private long brojSvidjanja;
-    private String kategorijaRecepta;
+    private String kategorijaRecepta = "";
     private String autor;
     private Timestamp datum;
-    private String lokacijaSlike;
+    private String lokacijaSlike = "";
     private int brojPrijava;
     private int brojPrekrsaja;
 
@@ -33,10 +35,6 @@ public class ReceptBuilder {
         return this;
     }
 
-    public ReceptBuilder setSlikaAutora(String slikaAutora) {
-        this.slikaAutora = slikaAutora;
-        return this;
-    }
 
     public ReceptBuilder setSlikaRecepta(String slikaRecepta) {
         this.slikaRecepta = slikaRecepta;
@@ -108,9 +106,31 @@ public class ReceptBuilder {
         return this;
     }
 
+    public Map<String, Object> createHashMap() {
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("naslovRecepta", naslovRecepta);
+        map.put("imeAutora", imeAutora);
+        map.put("slikaRecepta", slikaRecepta);
+        map.put("privatnaObjava", privatnaObjava);
+        map.put("koraci", koraci);
+        map.put("sastojci", sastojci);
+        map.put("vrijemePripreme", vrijemePripreme);
+        map.put("tezinaPripreme", tezinaPripreme);
+        map.put("brojOsoba", brojOsoba);
+        map.put("brojSvidjanja", brojSvidjanja);
+        map.put("kategorijaRecepta", kategorijaRecepta);
+        map.put("datum", datum);
+        map.put("lokacijaSlike", lokacijaSlike);
+        map.put("brojPrijava", brojPrijava);
+        map.put("brojPrekrsaja", brojPrekrsaja);
+        return map;
+    }
+
+
     public Recept createRecept() {
-        return new Recept(naslovRecepta, imeAutora, slikaAutora, slikaRecepta, privatnaObjava,
-                koraci, sastojci, vrijemePripreme, tezinaPripreme, brojOsoba, brojSvidjanja, kategorijaRecepta,
-                datum, autor, lokacijaSlike, brojPrijava, brojPrekrsaja);
+        return new Recept(naslovRecepta, imeAutora, slikaRecepta, kategorijaRecepta, lokacijaSlike,
+                datum, koraci, sastojci, vrijemePripreme, tezinaPripreme, brojOsoba, brojPrijava, brojPrekrsaja,
+                brojSvidjanja, privatnaObjava);
     }
 }

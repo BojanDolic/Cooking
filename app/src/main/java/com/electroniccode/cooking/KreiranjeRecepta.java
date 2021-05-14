@@ -61,6 +61,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.core.UserData;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -664,28 +665,42 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
         int brojOsoba = getBrojOsoba(brojOsoba_input);
         int vrijemePripreme = getVrijemePripreme(vrijemeIzrade_input);
 
-        final Map<String, Object> updateData = new HashMap<>();
+        ReceptBuilder builder = new ReceptBuilder();
+
+        Map<String, Object> updateData = new HashMap<>();
 
         if (!privatnaObjava) {
 
             boolean valuesChecked = CheckInputFields(naslovRecepta, brojOsoba_input, vrijemeIzrade_input);
 
-            updateData.put("naslovRecepta", Arrays.asList(naslovReceptaText));
-            updateData.put("privatnaObjava", privatnaObjava);
+            builder.setNaslovRecepta(naslovReceptaText)
+                    .setPrivatnaObjava(privatnaObjava)
+                    .setTezinaPripreme(tezinaPripreme)
+                    .setKategorijaRecepta(kategorijaRecepta)
+                    .setImeAutora(user.getUid());
+
+            /*updateData.put("naslovRecepta", Arrays.asList(naslovReceptaText));
+            updateData.put("privatnaObjava", privatnaObjava);*/
 
             if (sastojci.size() < 1 || koraci.size() < 1 || !valuesChecked) {//|| brojOsoba == 0 || vrijemePripreme == 0) {
-                CustomToast.info(KreiranjeRecepta.this, "Provjerite unesene podatke !", 0).show();
+                CustomToast.info(KreiranjeRecepta.this, "Provjerite unesene podatke (sastojci, koraci, naslov)!", 0).show();
                 dialog.dismiss();
                 return;
             } else {
-                updateData.put("sastojci", sastojci);
+
+                builder.setSastojci(sastojci);
+                builder.setKoraci(koraci);
+                builder.setBrojOsoba(brojOsoba);
+                builder.setVrijemePripreme(vrijemePripreme);
+
+                /*updateData.put("sastojci", sastojci);
                 updateData.put("koraci", koraci);
                 updateData.put("brojOsoba", brojOsoba);
-                updateData.put("vrijemePripreme", vrijemePripreme);
+                updateData.put("vrijemePripreme", vrijemePripreme);*/
             }
 
-            updateData.put("tezinaPripreme", tezinaPripreme);
-            updateData.put("kategorijaRecepta", kategorijaRecepta);
+            /*updateData.put("tezinaPripreme", tezinaPripreme);
+            updateData.put("kategorijaRecepta", kategorijaRecepta);*/
 
             if (globalFile != null) {
                 Calendar cal = Calendar.getInstance();
@@ -700,10 +715,15 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                             @Override
                             public void onSuccess(Uri uri) {
 
-                                updateData.put("slikaRecepta", uri.toString());
-                                updateData.put("lokacijaSlike", docRef.getName());
+                                /*updateData.put("slikaRecepta", uri.toString());
+                                updateData.put("lokacijaSlike", docRef.getName());*/
 
-                                db.document(Document_PATH).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                builder.setSlikaRecepta(uri.toString());
+                                builder.setLokacijaSlike(docRef.getName());
+
+
+
+                                db.document(Document_PATH).update(builder.createHashMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
@@ -736,7 +756,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                 });
 
             } else if (hasSliku) {
-                db.document(Document_PATH).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.document(Document_PATH).update(builder.createHashMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
@@ -757,7 +777,19 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                 return;
             }
         } else {
-            updateData.put("naslovRecepta", Arrays.asList(naslovReceptaText));
+
+            builder.setNaslovRecepta(naslovReceptaText)
+                    .setImeAutora(user.getUid())
+                    .setPrivatnaObjava(privatnaObjava)
+                    .setSastojci(sastojci.size() > 0 ? sastojci : new ArrayList<>())
+                    .setKoraci(koraci.size() > 0 ? koraci : new ArrayList<>())
+                    .setBrojOsoba(brojOsoba)
+                    .setVrijemePripreme(vrijemePripreme)
+                    .setTezinaPripreme(tezinaPripreme)
+                    .setKategorijaRecepta(kategorijaRecepta);
+
+
+            /*updateData.put("naslovRecepta", Arrays.asList(naslovReceptaText));
             updateData.put("privatnaObjava", privatnaObjava);
 
             if (sastojci.size() > 0)
@@ -774,7 +806,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
             updateData.put("vrijemePripreme", vrijemePripreme);
 
             updateData.put("tezinaPripreme", tezinaPripreme);
-            updateData.put("kategorijaRecepta", kategorijaRecepta);
+            updateData.put("kategorijaRecepta", kategorijaRecepta);*/
 
             if (globalFile != null) {
 
@@ -790,10 +822,13 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                             @Override
                             public void onSuccess(Uri uri) {
 
-                                updateData.put("slikaRecepta", uri.toString());
-                                updateData.put("lokacijaSlike", docRef.getName());
+                                /*updateData.put("slikaRecepta", uri.toString());
+                                updateData.put("lokacijaSlike", docRef.getName());*/
 
-                                db.document(Document_PATH).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                builder.setSlikaRecepta(uri.toString())
+                                        .setLokacijaSlike(docRef.getName());
+
+                                db.document(Document_PATH).update(builder.createHashMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
@@ -827,7 +862,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                 });
 
             } else {
-                db.document(Document_PATH).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.document(Document_PATH).update(builder.createHashMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
 
@@ -960,7 +995,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
             if (globalFile == null) {
 
 
-                final Map<String, Object> podaciRecepta = new HashMap<>();
+                /*final Map<String, Object> podaciRecepta = new HashMap<>();
 
                 podaciRecepta.put("naslovRecepta", Arrays.asList(naslovReceptaText));
                 podaciRecepta.put("privatnaObjava", privatnaObjava);
@@ -985,10 +1020,28 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                     podaciRecepta.put("vrijemePripreme", getVrijemePripreme(vrijemeIzrade_input));
 
                 podaciRecepta.put("kategorijaRecepta", kategorijaRecepta);
-                podaciRecepta.put("slikaRecepta", "");
+                podaciRecepta.put("slikaRecepta", "");*/
 
 
-                objaveKorisnikaCollection.add(podaciRecepta).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                recept = new ReceptBuilder()
+                        .setNaslovRecepta(naslovReceptaText)
+                        .setPrivatnaObjava(privatnaObjava)
+                        .setBrojSvidjanja(0)
+                        .setBrojPrijava(0)
+                        .setBrojPrekrsaja(0)
+                        .setImeAutora(user.getUid())
+                        .setSastojci(sastojci.size() > 0 ? sastojci : new ArrayList<>())
+                        .setKoraci(koraci.size() > 0 ? koraci : new ArrayList<>())
+                        .setTezinaPripreme(tezinaPripreme)
+                        .setBrojOsoba(brojOsoba)
+                        .setVrijemePripreme(vrijemePripreme)
+                        .setKategorijaRecepta(kategorijaRecepta)
+                        .setSlikaRecepta("")
+                        .createRecept();
+
+                Log.d(TAG, "SacuvajRecept: NASLOV" + recept.getNaslovRecepta());
+
+                objaveKorisnikaCollection.add(recept).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
 
@@ -1033,7 +1086,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
                             @Override
                             public void onSuccess(Uri uri) {
 
-                                final Map<String, Object> podaciRecepta = new HashMap<>();
+                                /*final Map<String, Object> podaciRecepta = new HashMap<>();
 
                                 podaciRecepta.put("naslovRecepta", Arrays.asList(naslovReceptaText));
                                 podaciRecepta.put("privatnaObjava", privatnaObjava);
@@ -1059,9 +1112,24 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
                                 podaciRecepta.put("slikaRecepta", uri.toString());
                                 podaciRecepta.put("kategorijaRecepta", kategorijaRecepta);
-                                podaciRecepta.put("lokacijaSlike", docRef.getName());
+                                podaciRecepta.put("lokacijaSlike", docRef.getName());*/
 
-                                objaveKorisnikaCollection.add(podaciRecepta).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                recept = new ReceptBuilder()
+                                        .setNaslovRecepta(naslovReceptaText)
+                                        .setPrivatnaObjava(privatnaObjava)
+                                        .setBrojSvidjanja(0)
+                                        .setImeAutora(user.getUid())
+                                        .setSastojci(sastojci.size() > 0 ? sastojci : new ArrayList<>())
+                                        .setKoraci(koraci.size() > 0 ? koraci : new ArrayList<>())
+                                        .setTezinaPripreme(tezinaPripreme)
+                                        .setBrojOsoba(brojOsoba)
+                                        .setVrijemePripreme(vrijemePripreme)
+                                        .setKategorijaRecepta(kategorijaRecepta)
+                                        .setSlikaRecepta(uri.toString())
+                                        .setLokacijaSlike(docRef.getName())
+                                        .createRecept();
+
+                                objaveKorisnikaCollection.add(recept).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {
 

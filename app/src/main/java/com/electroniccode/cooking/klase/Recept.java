@@ -13,7 +13,6 @@ public class Recept {
     private String imeAutora;
     @Exclude private String slikaAutora;
     private String slikaRecepta;
-    private String vrstaObjave;
     private String kategorijaRecepta;
     private String lokacijaSlike;
     private Timestamp datum;
@@ -32,9 +31,10 @@ public class Recept {
     private boolean privatnaObjava;
 
 
+    public Recept() { }
 
-    public Recept(String naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci, List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long brojSvidjanja, String kategorijaRecepta, Timestamp datum, String autor, String lokacijaSlike, int brojPrijava, int brojPrekrsaja) {
-    }
+    /*public Recept(String naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci, List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long brojSvidjanja, String kategorijaRecepta, Timestamp datum, String autor, String lokacijaSlike, int brojPrijava, int brojPrekrsaja) {
+    }*/
 
     /*public Recept(String naslovRecepta, String imeAutora, String slikaAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci,
                   List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long BrojSvidjanja,
@@ -53,7 +53,7 @@ public class Recept {
         this.kategorijaRecepta = kategorijaRecepta;
     }*/
 
-    public Recept(
+   /* public Recept(
             String naslovRecepta,
             String kategorijaRecepta,
             String autor,
@@ -86,8 +86,30 @@ public class Recept {
         this.brojPrijava = brojPrijava;
         this.brojPrekrsaja = brojPrekrsaja;
 
+    }*/
+
+    public Recept(String naslovRecepta, String imeAutora, String slikaRecepta,  String kategorijaRecepta, String lokacijaSlike, Timestamp datum, List<String> koraci, List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, int brojPrijava, int brojPrekrsaja, long brojSvidjanja, boolean privatnaObjava) {
+        this.naslovRecepta = naslovRecepta;
+        this.imeAutora = imeAutora;
+        this.slikaRecepta = slikaRecepta;
+        this.kategorijaRecepta = kategorijaRecepta;
+        this.lokacijaSlike = lokacijaSlike;
+        this.datum = datum;
+        this.koraci = koraci;
+        this.sastojci = sastojci;
+        this.vrijemePripreme = vrijemePripreme;
+        this.tezinaPripreme = tezinaPripreme;
+        this.brojOsoba = brojOsoba;
+        this.brojPrijava = brojPrijava;
+        this.brojPrekrsaja = brojPrekrsaja;
+        this.brojSvidjanja = brojSvidjanja;
+        this.privatnaObjava = privatnaObjava;
     }
 
+    /*public Recept(String naslovRecepta, String imeAutora, String slikaRecepta, boolean privatnaObjava, List<String> koraci, List<String> sastojci, int vrijemePripreme, int tezinaPripreme, int brojOsoba, long brojSvidjanja, String kategorijaRecepta, Timestamp datum, String autor, String lokacijaSlike, int brojPrijava, int brojPrekrsaja) {
+
+
+    }*/
 
 
     //region Getter i setter metode
