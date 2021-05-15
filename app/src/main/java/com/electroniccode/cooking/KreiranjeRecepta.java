@@ -546,7 +546,7 @@ public class KreiranjeRecepta extends AppCompatActivity implements KreiranjeRece
 
                             recept = new ReceptBuilder()
                                     .setNaslovRecepta(naslovReceptaTxt)
-                                    .setAutor(user.getUid())
+                                    .setImeAutora(user.getUid())
                                     .setSastojci(sastojci.size() > 0 ? sastojci : new ArrayList<>())
                                     .setKoraci(koraci.size() > 0 ? koraci : new ArrayList<>())
                                     .setTezinaPripreme(tezinaPripreme)
