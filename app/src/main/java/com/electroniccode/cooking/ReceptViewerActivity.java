@@ -827,6 +827,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                 .setSocialMetaTagParameters(
                         new DynamicLink.SocialMetaTagParameters.Builder()
                                 .setTitle(trenutniRecept.getNaslovRecepta())
+                                .setDescription("Klikom na link otvorite CookIT aplikaciju da pogledate recept.")
                                 .setImageUrl(Uri.parse(trenutniRecept.getSlikaRecepta()))
                                 .build())
                 .buildShortDynamicLink()
