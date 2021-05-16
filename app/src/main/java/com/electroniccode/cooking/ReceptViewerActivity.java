@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
@@ -30,7 +31,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.electroniccode.cooking.Adapteri.KomentarAdapter;
@@ -53,6 +56,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -639,181 +646,225 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.recept_ispravka_teksta_prijava) {
+            if (!TextUtils.equals(AutorID, user.getUid())) {
 
-            case R.id.recept_ispravka_teksta_prijava:
+                androidx.appcompat.app.AlertDialog.Builder builder;
 
-                if (!TextUtils.equals(AutorID, user.getUid())) {
-
-                    androidx.appcompat.app.AlertDialog.Builder builder;
-
-                    builder = new CustomInputDialog().createDialog(ReceptViewerActivity.this,
-                            "Prijavite grešku u tekstu",
-                            "Opišite gdje ste pronašli grešku");
+                builder = new CustomInputDialog().createDialog(ReceptViewerActivity.this,
+                        "Prijavite grešku u tekstu",
+                        "Opišite gdje ste pronašli grešku");
 
 
-                    View viewInflated = getLayoutInflater().inflate(R.layout.text_input_dialog_layout, (ViewGroup) findViewById(android.R.id.content), false);
-                    final TextInputEditText input = viewInflated.findViewById(R.id.text_input_dialog_edittext);
+                View viewInflated = getLayoutInflater().inflate(R.layout.text_input_dialog_layout, (ViewGroup) findViewById(android.R.id.content), false);
+                final TextInputEditText input = viewInflated.findViewById(R.id.text_input_dialog_edittext);
 
-                    final TextInputLayout layout = viewInflated.findViewById(R.id.text_input_dialog_textLayout);
-                    layout.setHint("Maksimalno 100 karaktera");
-
-
-                    builder.setView(viewInflated);
-
-                    final androidx.appcompat.app.AlertDialog dialog = builder.create();
-                    dialog.show();
+                final TextInputLayout layout = viewInflated.findViewById(R.id.text_input_dialog_textLayout);
+                layout.setHint("Maksimalno 100 karaktera");
 
 
-                    final Button posaljiBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    final Button otkaziBtn = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                builder.setView(viewInflated);
 
-                    posaljiBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            final String text = input.getText().toString();
-
-                            if (text.length() <= 100 && text.length() > 4) {
-                                if (!TextUtils.isEmpty(text)) {
-
-                                    //input.setEnabled(false);
-                                    posaljiBtn.setEnabled(false);
-                                    otkaziBtn.setEnabled(false);
-                                    posaljiBtn.setText("Slanje prijave...");
-
-                                    db.document(Document_PATH).collection("prijave").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                                            boolean imaPrijavu = false;
-
-                                            for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
-
-                                                if (TextUtils.equals(snapshot.getId(), user.getUid())) {
-                                                    imaPrijavu = true;
-                                                    break;
-                                                } else imaPrijavu = false;
-
-                                            }
+                final androidx.appcompat.app.AlertDialog dialog = builder.create();
+                dialog.show();
 
 
-                                            if (imaPrijavu) {
-                                                dialog.dismiss();
-                                                CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_vec_prijavljen), 0).show();
+                final Button posaljiBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                final Button otkaziBtn = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
-                                            } else {
-                                                SendPrijavuNaServer(text, dialog, input);
-                                            }
+                posaljiBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final String text = input.getText().toString();
+
+                        if (text.length() <= 100 && text.length() > 4) {
+                            if (!TextUtils.isEmpty(text)) {
+
+                                //input.setEnabled(false);
+                                posaljiBtn.setEnabled(false);
+                                otkaziBtn.setEnabled(false);
+                                posaljiBtn.setText("Slanje prijave...");
+
+                                db.document(Document_PATH).collection("prijave").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                                        boolean imaPrijavu = false;
+
+                                        for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
+
+                                            if (TextUtils.equals(snapshot.getId(), user.getUid())) {
+                                                imaPrijavu = true;
+                                                break;
+                                            } else imaPrijavu = false;
 
                                         }
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
+
+
+                                        if (imaPrijavu) {
                                             dialog.dismiss();
-                                            CustomToast.error(getApplicationContext(), "Greška pri prijavi recepta !", 0).show();
+                                            CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_vec_prijavljen), 0).show();
+
+                                        } else {
+                                            SendPrijavuNaServer(text, dialog, input);
                                         }
-                                    });
 
-                                } else layout.setError("Polje za unos ne može biti prazno");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        dialog.dismiss();
+                                        CustomToast.error(getApplicationContext(), "Greška pri prijavi recepta !", 0).show();
+                                    }
+                                });
 
-
-                            } else
-                                layout.setError("Uneseni tekst ne može biti duži od 100 karaktera i kraći od 5 karaktera !");
-                        }
-                    });
-
-
-                    otkaziBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            dialog.cancel();
-                        }
-                    });
-                } else
-                    CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_svoj), 0).show();
+                            } else layout.setError("Polje za unos ne može biti prazno");
 
 
-                break;
+                        } else
+                            layout.setError("Uneseni tekst ne može biti duži od 100 karaktera i kraći od 5 karaktera !");
+                    }
+                });
+
+
+                otkaziBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialog.cancel();
+                    }
+                });
+            } else
+                CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_svoj), 0).show();
 
 
             /*
              * AKO KORISNIK IZABERE NEPRIMJEREN SADRŽAJ
              */
+        } else if (itemId == R.id.recept_neprimjeren_sadrzaj_prijava) {
+            if (!TextUtils.equals(AutorID, user.getUid())) {
+
+                androidx.appcompat.app.AlertDialog.Builder neprimjerenSadrzajDialogBuilder;
+
+                neprimjerenSadrzajDialogBuilder = CustomInputDialog.createYesNoDialog(ReceptViewerActivity.this,
+                        "Prijavite neprimjeren sadržaj",
+                        "Ako želite prijaviti neprimjeren sadržaj, na primjer neprimjerenu sliku recepta, pritisnite PRIJAVI");
+
+                final androidx.appcompat.app.AlertDialog nepSadrzajDialog = neprimjerenSadrzajDialogBuilder.create();
+                nepSadrzajDialog.show();
+
+                final Button prijaviBtn = nepSadrzajDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                final Button odustaniBtn = nepSadrzajDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
 
-            case R.id.recept_neprimjeren_sadrzaj_prijava:
+                prijaviBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-                if (!TextUtils.equals(AutorID, user.getUid())) {
+                        prijaviBtn.setEnabled(false);
+                        odustaniBtn.setEnabled(false);
 
-                    androidx.appcompat.app.AlertDialog.Builder neprimjerenSadrzajDialogBuilder;
+                        db.document(Document_PATH).collection("prijave").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                    neprimjerenSadrzajDialogBuilder = CustomInputDialog.createYesNoDialog(ReceptViewerActivity.this,
-                            "Prijavite neprimjeren sadržaj",
-                            "Ako želite prijaviti neprimjeren sadržaj, na primjer neprimjerenu sliku recepta, pritisnite PRIJAVI");
+                                boolean imaPrijavu = false;
 
-                    final androidx.appcompat.app.AlertDialog nepSadrzajDialog = neprimjerenSadrzajDialogBuilder.create();
-                    nepSadrzajDialog.show();
+                                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
 
-                    final Button prijaviBtn = nepSadrzajDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                    final Button odustaniBtn = nepSadrzajDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-
-
-                    prijaviBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
-                            prijaviBtn.setEnabled(false);
-                            odustaniBtn.setEnabled(false);
-
-                            db.document(Document_PATH).collection("prijave").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                                    boolean imaPrijavu = false;
-
-                                    for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
-
-                                        if (TextUtils.equals(snapshot.getId(), user.getUid())) {
-                                            imaPrijavu = true;
-                                            break;
-                                        }
-
+                                    if (TextUtils.equals(snapshot.getId(), user.getUid())) {
+                                        imaPrijavu = true;
+                                        break;
                                     }
 
-
-                                    if (imaPrijavu) {
-                                        nepSadrzajDialog.dismiss();
-                                        CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_vec_prijavljen), 0).show();
-
-                                    } else
-
-                                        SendPrijavuNaServer("Neprimjeren sadržaj", nepSadrzajDialog, null);
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
+
+
+                                if (imaPrijavu) {
                                     nepSadrzajDialog.dismiss();
-                                    CustomToast.error(getApplicationContext(), "Greška pri prijavi recepta !", 0).show();
-                                }
-                            });
-                        }
-                    });
+                                    CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_vec_prijavljen), 0).show();
 
-                } else
-                    CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_svoj), 0).show();
+                                } else
 
+                                    SendPrijavuNaServer("Neprimjeren sadržaj", nepSadrzajDialog, null);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                nepSadrzajDialog.dismiss();
+                                CustomToast.error(getApplicationContext(), "Greška pri prijavi recepta !", 0).show();
+                            }
+                        });
+                    }
+                });
 
-                break;
+            } else
+                CustomToast.error(getApplicationContext(), getResources().getText(R.string.greška_prijava_recepta_svoj), 0).show();
+        } else if(itemId == R.id.recept_menu_share) {
+            /* Kreira short link za share recepta */
+            createShareLink();
 
-            default:
-                return super.onOptionsItemSelected(item);
-
+        } else {
+            return super.onOptionsItemSelected(item);
         }
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Funkcija koja kreira short dynamic link
+     * Ako je kreiranje uspješno, poziva se funkcija za share linka
+     */
+    void createShareLink() {
+
+        Toast.makeText(this, "Kreiranje linka...", Toast.LENGTH_SHORT).show();
+
+        Task<ShortDynamicLink> dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://www.electroniccode.com/" + receptID))
+                .setDomainUriPrefix("https://electroniccode.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle(trenutniRecept.getNaslovRecepta())
+                                .setImageUrl(Uri.parse(trenutniRecept.getSlikaRecepta()))
+                                .build())
+                .buildShortDynamicLink()
+                .addOnCompleteListener( shortDynamicLinkTask -> {
+
+                    if(shortDynamicLinkTask.isSuccessful()) {
+                        Uri shortLink = shortDynamicLinkTask.getResult().getShortLink();
+
+                        shareReceptLink(shortLink);
+                    }
+                });
+
+
+
+        /*DynamicLink dynamicLink = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://www.electroniccode.com/" + receptID))
+                .setDomainUriPrefix("https://electroniccode.page.link")
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .setSocialMetaTagParameters(
+                        new DynamicLink.SocialMetaTagParameters.Builder()
+                                .setTitle(trenutniRecept.getNaslovRecepta())
+                                .setImageUrl(Uri.parse(trenutniRecept.getSlikaRecepta()))
+                                .build())
+                .buildDynamicLink();*/
+
+
+    }
+
+    /**
+     * Funkcija koja pravi Intent za dijeljenje linka
+     * @param linkRecepta Uri linka (short link)
+     */
+    void shareReceptLink(Uri linkRecepta) {
+        Intent shareIntent = new Intent();
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, linkRecepta.toString());
+        startActivity(Intent.createChooser(shareIntent, "Podijeli"));
+    }
 
     void SendPrijavuNaServer(String tekst, final androidx.appcompat.app.AlertDialog dialog, final TextInputEditText inputEditText) {
 

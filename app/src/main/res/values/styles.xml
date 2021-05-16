@@ -14,7 +14,6 @@
 
         <item name="android:windowActivityTransitions">true</item>
 
-
         <item name="android:windowSharedElementEnterTransition">@transition/img_transf</item>
         <item name="android:windowSharedElementExitTransition">@transition/img_transf</item>
 
@@ -108,4 +107,5 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
+    <color name="white">#FFFFFF</color>
 </resources>

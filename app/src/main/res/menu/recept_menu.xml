@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/recept_menu_share"
+        android:title="Podijeli"
+        android:icon="@drawable/share_icon"
+        android:iconTint="@color/white"
+        app:showAsAction="always"/>
 
     <item android:title="Prijavite problem">
 

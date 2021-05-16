@@ -8,8 +8,8 @@ android {
         applicationId "com.electroniccode.cooking"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 6
-        versionName '1.0.1'
+        versionCode 7
+        versionName '1.0.2'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -34,14 +34,19 @@ dependencies {
     implementation 'com.google.android.material:material:1.4.0-alpha02'
     implementation 'androidx.cardview:cardview:1.0.0'
 
+
+    
+    implementation platform('com.google.firebase:firebase-bom:28.0.1')
+
     // Firebase
     implementation 'com.google.firebase:firebase-auth:20.0.4'
     implementation 'com.google.firebase:firebase-firestore:23.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:7.1.0'
     implementation 'com.google.firebase:firebase-storage:19.2.2'
-    implementation 'com.google.firebase:firebase-analytics:18.0.3'
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:21.1.0'
     implementation 'com.google.firebase:firebase-functions:19.2.0'
+    implementation 'com.google.firebase:firebase-dynamic-links'
 
     implementation 'android.arch.paging:runtime:1.0.1'
 

@@ -45,7 +45,18 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.electroniccode.cooking.ReceptViewerActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+
+            <intent-filter android:autoVerify="true">
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="electroniccode.page.link" android:scheme="http"/>
+                <data android:host="electroniccode.page.link" android:scheme="https"/>
+
+            </intent-filter>
+
+        </activity>
+
         <activity
             android:name="com.electroniccode.cooking.BugReportActivity"
             android:screenOrientation="portrait" />

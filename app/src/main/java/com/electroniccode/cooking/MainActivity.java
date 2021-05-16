@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
@@ -47,6 +48,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -142,6 +144,20 @@ public class MainActivity extends AppCompatActivity
         });
 
         interAdRequest = new AdRequest.Builder().build();
+
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, data -> {
+
+                    Uri deeplink = null;
+                    if(data != null) {
+                        deeplink = data.getLink();
+                        deeplink.getLastPathSegment();
+                        Log.d(TAG, "onCreate: LINK " + deeplink.toString());
+                        openReceptDetailsScreen("objaveKorisnika/" + deeplink.getLastPathSegment(), false);
+                    }
+                });
 
 
 
