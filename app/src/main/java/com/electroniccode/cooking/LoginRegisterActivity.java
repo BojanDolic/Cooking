@@ -36,6 +36,7 @@ import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.FirebaseInstanceIdReceiver;
 import com.google.firebase.iid.InstanceIdResult;
 
 import java.util.HashMap;

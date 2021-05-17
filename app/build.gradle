@@ -8,8 +8,8 @@ android {
         applicationId "com.electroniccode.cooking"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 7
-        versionName '1.0.2'
+        versionCode 8
+        versionName '1.1.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
