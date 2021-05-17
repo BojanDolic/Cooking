@@ -153,9 +153,9 @@ public class MainActivity extends AppCompatActivity
                     Uri deeplink = null;
                     if(data != null) {
                         deeplink = data.getLink();
-                        deeplink.getLastPathSegment();
-                        Log.d(TAG, "onCreate: LINK " + deeplink.toString());
-                        openReceptDetailsScreen("objaveKorisnika/" + deeplink.getLastPathSegment(), false);
+                        String receptID = deeplink.getLastPathSegment();
+
+                        openReceptDetailsScreen("objaveKorisnika/" + receptID, false);
                     }
                 });
 

@@ -2,14 +2,18 @@ package com.electroniccode.cooking;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
@@ -18,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.electroniccode.cooking.constants.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +33,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -44,6 +50,7 @@ public class LoginRegisterActivity extends AppCompatActivity {
     private ImageView loginImage;
     private TextView logreg_text1, logreg_text2, register_activity_text;
     private boolean prijavljujeSe = false;
+    private MutableLiveData<Boolean> loginCheck = new MutableLiveData<>();
 
 
     private FirebaseAuth auth;
@@ -62,46 +69,53 @@ public class LoginRegisterActivity extends AppCompatActivity {
         user = auth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
+        loginCheck.setValue(true);
 
-        auth.getAccessToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-            @Override
-            public void onSuccess(GetTokenResult getTokenResult) {
-                if (getTokenResult.getToken() != null && !TextUtils.isEmpty(getTokenResult.getToken())) {
-                    startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));
-                    finish();
-                }
+        loginCheck.observe(this, logging -> {
+            if(logging) {
+                loginBtn.setEnabled(false);
+                loginBtn.setText(R.string.provjera_podataka_text);
+            } else {
+                loginBtn.setEnabled(true);
+                loginBtn.setText(R.string.prijavi_se_text);
             }
         });
 
+
+        auth.getAccessToken(true).addOnCompleteListener(this, getTokenResult -> {
+            // Korisnikov token je validan i korisnik je već prijavljen
+            if (getTokenResult.isSuccessful()) {
+                if (getTokenResult.getResult().getToken() != null && !TextUtils.isEmpty(getTokenResult.getResult().getToken())) {
+                    startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));
+                    finish();
+                } else checkShareRecepta();
+            } else checkShareRecepta();
+        });
 
 
         final Korisnik korisnik = new Korisnik(user);
 
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        loginBtn.setOnClickListener(view -> {
 
-                String email = emailUnos.getText().toString();
-                String lozinka = lozinkaUnos.getText().toString();
+            String email = emailUnos.getText().toString();
+            String lozinka = lozinkaUnos.getText().toString();
 
 
-                if (korisnik.CheckEmail(email)) {
-                    if (korisnik.CheckLozinku(lozinka)) {
+            if (korisnik.CheckEmail(email)) {
+                if (korisnik.CheckLozinku(lozinka)) {
+                    Login(email, lozinka);
 
-                        Login(email, lozinka);
-
-                    } else {
-                        Toast toast = Toast.makeText(LoginRegisterActivity.this, "Provjerite lozinku", Toast.LENGTH_SHORT);
-                        //CustomToast.error(LoginRegisterActivity.this, "Provjerite lozinku!", Toast.LENGTH_SHORT);
-                        InputError(lozinkaUnosLayout, toast);
-                    }
                 } else {
-                    Toast toast = Toast.makeText(LoginRegisterActivity.this, "Provjerite E-mail", Toast.LENGTH_SHORT);
-                    InputError(emailUnosLayout, toast);
+                    Toast toast = Toast.makeText(LoginRegisterActivity.this, "Provjerite lozinku", Toast.LENGTH_SHORT);
+                    //CustomToast.error(LoginRegisterActivity.this, "Provjerite lozinku!", Toast.LENGTH_SHORT);
+                    InputError(lozinkaUnosLayout, toast);
                 }
-
+            } else {
+                Toast toast = Toast.makeText(LoginRegisterActivity.this, "Provjerite E-mail", Toast.LENGTH_SHORT);
+                InputError(emailUnosLayout, toast);
             }
+
         });
 
         register_activity_text.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +125,56 @@ public class LoginRegisterActivity extends AppCompatActivity {
             }
         });
 
+        // Pokreće animacije
+        //startAnims();
+
+
+    }
+
+    /**
+     * Funkcija provjerava da li je korisnik ušao u aplikaciju preko podijeljenog linka
+     * Ako jeste otvara se ekran za pregled recepta
+     */
+    private void checkShareRecepta() {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnCompleteListener(this, task -> {
+
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        Uri deeplink = task.getResult().getLink();
+
+                        // Dobijamo id recepta kojeg treba učitati
+                        String idRecepta = deeplink.getLastPathSegment();
+
+                        String docPath = Constants.RECEPTI_COLLECTION + idRecepta;
+
+                        Intent i = new Intent(LoginRegisterActivity.this, ReceptViewerActivity.class);
+                        i.putExtra("Document_PATH", docPath);
+                        i.putExtra("profilEnter", true);
+                        startActivity(i);
+                        finish();
+                    } else loginCheck.setValue(false);
+                });
+    }
+
+    /**
+     * Funkcija provjerava token korisnika
+     * Na taj način ujedno provjeravamo da li je korisnik već registrovan
+     * Ako jeste otvaramo novi activity
+     */
+    /*private void checkUserAndLogin() {
+        auth.getAccessToken(true).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+            @Override
+            public void onSuccess(GetTokenResult getTokenResult) {
+                if (getTokenResult.getToken() != null && !TextUtils.isEmpty(getTokenResult.getToken())) {
+                    startActivity(new Intent(LoginRegisterActivity.this, MainActivity.class));
+                    finish();
+                }
+            }
+        });
+    }*/
+
+    void startAnims() {
 
         emailUnosLayout.setAlpha(0f);
         lozinkaUnosLayout.setAlpha(0f);
@@ -157,9 +221,6 @@ public class LoginRegisterActivity extends AppCompatActivity {
         AnimatorSet btnSet = new AnimatorSet();
         btnSet.play(btnAnim).after(set);
         btnSet.start();
-
-        //endregion
-
 
     }
 
@@ -257,17 +318,15 @@ public class LoginRegisterActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
 
-                                        if(auth.getCurrentUser() != null)
+                                        if (auth.getCurrentUser() != null)
                                             auth.signOut();
 
                                         prijavljujeSe = false;
                                     }
                                 });
 
-                            }
-                            else
-                            {
-                                if(auth.getCurrentUser() != null)
+                            } else {
+                                if (auth.getCurrentUser() != null)
                                     auth.signOut();
 
                                 prijavljujeSe = false;

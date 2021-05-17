@@ -118,7 +118,7 @@
             android:id="@+id/logreg_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prijavi se"
+            android:text="@string/prijavi_se_text"
             android:layout_gravity="end"
             android:elevation="4dp"
             android:fontFamily="@font/rubik_bold"

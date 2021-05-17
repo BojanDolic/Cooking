@@ -72,5 +72,7 @@
     \n\nUspješno ste prošli kroz naš vodič za kreiranje recepta.
     \nNadamo se da ste naučili kako kreirati kvalitetan recept.
     \n\nNe zaboravite da uvijek možete pogledati vodič i podsjetiti se kako kreirati recept!</string>
+    <string name="provjera_podataka_text">Provjera podataka...</string>
+    <string name="prijavi_se_text">Prijavi se</string>
 
 </resources>

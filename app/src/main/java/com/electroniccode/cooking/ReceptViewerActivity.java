@@ -72,6 +72,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,6 +87,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
     String Document_PATH;
     String AutorID;
+    String userUID;
     //private static String ReceptID;
 
     Toolbar toolbar;
@@ -133,6 +136,8 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
     private AdRequest adRequest;
     private InterstitialAd interAd;
+
+    private CountDownTimer timer = null;
 
     /// Privremeno za komentare
     List<String> komentari = new ArrayList<>();
@@ -216,8 +221,9 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
             enteredFromProfil = bundle.getBoolean("profilEnter");
 
+
         } catch (NullPointerException e) {
-            Log.d(TAG, "onCreate: " + e.getMessage());
+            Log.d(TAG, "onCreate: GREŠKA PRI PREUZIMANJU DOKUMENT PATH-A" + e.getMessage());
         }
 
 
@@ -225,93 +231,99 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
         user = auth.getCurrentUser();
 
+        if(user != null)
+            userUID = user.getUid();
 
         collection = db.collection("objaveKorisnika");
         komentariCollection = db.document(Document_PATH).collection("komentari");
 
-        db.document(Document_PATH).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+        db.document(Document_PATH).get().addOnSuccessListener(documentSnapshot -> {
+
+            if (documentSnapshot.exists()) {
+                receptID = documentSnapshot.getId();
+                AutorID = documentSnapshot.getString("imeAutora");
+
+                trenutniRecept = documentSnapshot.toObject(Recept.class);
+
+                privatnaObjava = trenutniRecept.getPrivatnuObjavu();
+
+                // Ako korisnik otvori podijeljeni recept, a nije registrovan
+                // Neće moći dodati komentar
+                // Isto se dešava i ako je recept privatan (sačuvan)
+                if (privatnaObjava || enteredFromProfil)
+                    dodajKomentarBtn.setVisibility(View.GONE);
+
+                if (trenutniRecept != null)
+                    LoadData(trenutniRecept);
 
 
-                if (documentSnapshot.exists()) {
-                    receptID = documentSnapshot.getId();
-                    AutorID = documentSnapshot.getString("imeAutora");
+                if (!TextUtils.equals(AutorID, userUID)) {
 
-                    trenutniRecept = documentSnapshot.toObject(Recept.class);
-
-                    privatnaObjava = trenutniRecept.getPrivatnuObjavu();
-                    if (privatnaObjava)
-                        dodajKomentarBtn.setVisibility(View.GONE);
-
-                    if (trenutniRecept != null)
-                        LoadData(trenutniRecept);
+                    likeReceptFab.setVisibility(View.VISIBLE);
 
 
-                    if (!TextUtils.equals(AutorID, user.getUid())) {
+                    lajkoviCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        likeReceptFab.setVisibility(View.VISIBLE);
+                            List<String> likedUserIDs = new ArrayList<>();
 
+                            for (DocumentSnapshot document : queryDocumentSnapshots) {
 
-                        lajkoviCollection.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                            @Override
-                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
-                                List<String> likedUserIDs = new ArrayList<>();
-
-                                for (DocumentSnapshot document : queryDocumentSnapshots) {
-
-                                    if (document.exists())
-                                        likedUserIDs.add(document.getId());
-
-                                }
-
-                                for (String s : likedUserIDs) {
-
-                                    if (TextUtils.equals(s, user.getUid())) {
-                                        likeReceptFab.setImageResource(R.drawable.srce_full_icon);
-                                        likeReceptFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e32424")));
-                                        lajkovao = true;
-                                        return;
-                                    } else {
-
-                                        likeReceptFab.setBackgroundResource(R.drawable.srce_empty_icon);
-                                        likeReceptFab.setSupportBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e32424")));
-                                        lajkovao = false;
-                                    }
-                                }
+                                if (document.exists())
+                                    likedUserIDs.add(document.getId());
 
                             }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                likeReceptFab.setVisibility(View.GONE);
-                            }
-                        });
 
-                    } else {
-                        likeReceptFab.setVisibility(View.GONE);
-                    }
+                            for (String s : likedUserIDs) {
+
+                                if (TextUtils.equals(s, userUID)) {
+                                    likeReceptFab.setImageResource(R.drawable.srce_full_icon);
+                                    likeReceptFab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e32424")));
+                                    lajkovao = true;
+                                    return;
+                                } else {
+
+                                    likeReceptFab.setBackgroundResource(R.drawable.srce_empty_icon);
+                                    likeReceptFab.setSupportBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#e32424")));
+                                    lajkovao = false;
+                                }
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            likeReceptFab.setVisibility(View.GONE);
+                        }
+                    });
+
                 } else {
-                    dialog.cancel();
-                    finish();
+                    likeReceptFab.setVisibility(View.GONE);
                 }
+            } else {
+                dialog.cancel();
+                finish();
             }
+        })
+        .addOnFailureListener(this, e -> {
+
+            Log.d(TAG, "onCreate: GREŠKA U PREUZIMANJU DOKUMENTA" + e.getMessage());
+            Log.e(TAG, "onCreate: GREŠKA ", e);
+
         });
 
         //////////////////////////////////////////////////////////////////////
 
 
-        db.document(Document_PATH).addSnapshotListener(ReceptViewerActivity.this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+        db.document(Document_PATH).addSnapshotListener(ReceptViewerActivity.this, (documentSnapshot, e) -> {
 
-                //if (e != null && documentSnapshot != null) {
-                    if (documentSnapshot.exists()) {
+                if (documentSnapshot != null) {
+                    if(documentSnapshot.exists()) {
                         ocjenaRecepta.setText(String.format(Locale.getDefault(), "%d", documentSnapshot.getLong("BrojSvidjanja")));
-                        if(documentSnapshot.getBoolean("privatnaObjava") && !enteredFromProfil) {
+                        if (documentSnapshot.getBoolean("privatnaObjava") && !enteredFromProfil) {
                             CustomToast.info(getApplicationContext(), "Recept je sklonjen od strane servera ili skriven od strane autora !", 1).show();
-                            new CountDownTimer(2000, 1000) {
+                            timer = new CountDownTimer(2000, 1000) {
 
                                 @Override
                                 public void onTick(long millisUntilFinished) {
@@ -326,7 +338,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                         }
                     } else {
                         CustomToast.error(getApplicationContext(), "Recept je uklonjen sa servera !", 1).show();
-                        new CountDownTimer(2000, 1000) {
+                        timer = new CountDownTimer(2000, 1000) {
 
                             @Override
                             public void onTick(long millisUntilFinished) {
@@ -339,8 +351,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                             }
                         }.start();
                     }
-                //}
-            }
+                }
         });
 
 
@@ -408,18 +419,17 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
         Query query = komentariCollection;
 
-        query.addSnapshotListener(ReceptViewerActivity.this, new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+        query.addSnapshotListener(ReceptViewerActivity.this, (queryDocumentSnapshots, e) -> {
 
+            if(queryDocumentSnapshots != null) {
 
-                    if (queryDocumentSnapshots.isEmpty()) {
-                        komentariRecycler.setVisibility(View.GONE);
-                        komentariEmptyLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        komentariRecycler.setVisibility(View.VISIBLE);
-                        komentariEmptyLayout.setVisibility(View.GONE);
-                    }
+                if (queryDocumentSnapshots.isEmpty()) {
+                    komentariRecycler.setVisibility(View.GONE);
+                    komentariEmptyLayout.setVisibility(View.VISIBLE);
+                } else {
+                    komentariRecycler.setVisibility(View.VISIBLE);
+                    komentariEmptyLayout.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -479,7 +489,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                                     Map<String, Object> userData = new HashMap<>();
                                     userData.put("lajkovaniRecepti", FieldValue.arrayRemove(document.getId()));
 
-                                    lajkoviCollection.document(user.getUid()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    lajkoviCollection.document(userUID).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
@@ -506,7 +516,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
                                     Map<String, Object> userData = new HashMap<>();
                                     userData.put("korisnikovID", user.getUid());
 
-                                    lajkoviCollection.document(user.getUid()).set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    lajkoviCollection.document(userUID).set(userData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
 
@@ -608,7 +618,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
         Map<String, Object> komentarData = new HashMap<>();
         komentarData.put("komentar", tekst);
-        komentarData.put("imeAutora", user.getUid());
+        komentarData.put("imeAutora", userUID);
         //komentarData.put();
 
         db.document(Document_PATH).collection("komentari").document().set(komentarData).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -634,9 +644,10 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.recept_menu, menu);
-
+        if(!enteredFromProfil) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.recept_menu, menu);
+        }
 
         return super.onCreateOptionsMenu(menu);
 
@@ -648,7 +659,7 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
 
         int itemId = item.getItemId();
         if (itemId == R.id.recept_ispravka_teksta_prijava) {
-            if (!TextUtils.equals(AutorID, user.getUid())) {
+            if (!TextUtils.equals(AutorID, userUID)) {
 
                 androidx.appcompat.app.AlertDialog.Builder builder;
 
@@ -984,4 +995,12 @@ public class ReceptViewerActivity extends AppCompatActivity implements AddCommen
         });
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(timer != null)
+            timer.cancel();
+    }
 }
+
